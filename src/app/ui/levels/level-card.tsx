@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ButtonD } from "@/app/ui/button";
 import Image from "next/image";
+import clsx from "clsx";
 
+type color = 'emerald' | 'pink' | 'teal' | 'purple'
 type dificulty = "fácil" | "medio" | "difícil";
 
 interface Params {
@@ -10,7 +12,7 @@ interface Params {
   subTitle: string;
   btnUrl: string;
   dificulty: dificulty;
-  color: 'yellow' | 'emerald' | 'gray'
+  color: color
 }
 
 export default function LevelSelector({
@@ -21,9 +23,23 @@ export default function LevelSelector({
   dificulty,color
 }: Params) {
   return (
-    <section className={`flex flex-col-reverse h-svh border-${color}-300 px-10 py-7 justify-between max-w-3xl m-auto rounded-3xl bg-${color}-600  sm:flex-row sm:h-auto max-h-96`}>
+    <section className={clsx(`flex flex-col-reverse h-svh px-10 py-7 justify-between max-w-3xl m-auto rounded-3xl sm:flex-row sm:h-auto max-h-96`, {
+      "border-emerald-300": color === 'emerald',
+      "bg-emerald-600": color === 'emerald',
+      "border-pink-300": color === 'pink',
+      "bg-pink-600": color === 'pink',
+      "border-teal-300": color === 'teal',
+      "bg-teal-600": color === 'teal',
+      "border-purple-300": color === 'purple',
+      "bg-purple-600": color === 'purple',
+    })}>
       <div className=" w-auto">
-        <span className={`bg-${color}-500 rounded-xl font-bold py-2 px-5 capitalize`}>
+        <span className={clsx(` rounded-xl font-bold py-2 px-5 capitalize`, {
+          "bg-emerald-500": color === 'emerald',
+          "bg-pink-500": color === 'pink',
+          "bg-teal-500": color === 'teal',
+          "bg-purple-500": color === 'purple'
+        })}>
           {dificulty}
         </span>
         <h3 className="font-extrabold mt-4 text-xl">{ title }</h3>
