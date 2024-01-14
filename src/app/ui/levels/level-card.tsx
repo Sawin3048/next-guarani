@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ButtonD } from "@/app/ui/button";
+import { ButtonLink } from "@/app/ui/buttond";
 import Image from "next/image";
 import clsx from "clsx";
 
@@ -23,7 +23,7 @@ export default function LevelSelector({
   dificulty,color
 }: Params) {
   return (
-    <section className={clsx(`flex flex-col-reverse h-svh px-10 py-7 justify-between max-w-3xl m-auto rounded-3xl sm:flex-row sm:h-auto max-h-96`, {
+    <section className={clsx(`flex flex-col-reverse h-svh px-10 py-7 justify-between max-w-3xl m-auto md:rounded-3xl sm:flex-row sm:h-auto max-h-96`, {
       "border-emerald-300": color === 'emerald',
       "bg-emerald-600": color === 'emerald',
       "border-pink-300": color === 'pink',
@@ -33,7 +33,7 @@ export default function LevelSelector({
       "border-purple-300": color === 'purple',
       "bg-purple-600": color === 'purple',
     })}>
-      <div className=" w-auto">
+      <div className=" w-full sm:max-w-80">
         <span className={clsx(` rounded-xl font-bold py-2 px-5 capitalize`, {
           "bg-emerald-500": color === 'emerald',
           "bg-pink-500": color === 'pink',
@@ -45,15 +45,15 @@ export default function LevelSelector({
         <h3 className="font-extrabold mt-4 text-xl">{ title }</h3>
         <h3 className="font-medium mt-1 -xl opacity-90">{subTitle}</h3>
         <Link href={btnUrl}>
-          <ButtonD className="w-full mt-5" color={color}>Empezar</ButtonD>
+          <ButtonLink className="w-full mt-5" color={color}>Empezar</ButtonLink>
         </Link>
       </div>
-      <div className="grid place-content-center ">
+        <div className="grid place-content-center w-full md:pl-16 ">
         <Image
           src={imgSrc}
           alt="Niño con una lupa"
-          width={200}
-          height={200}
+          width={220}
+          height={220}
           className=""
         />
       </div>

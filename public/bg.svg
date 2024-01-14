@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="_x31_0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#FAED00;}
+	.st2{fill:#036EB7;}
+	.st3{fill:#E73828;}
+	.st4{fill:#1EAA39;}
+	.st5{fill:#231815;}
+	.st6{fill:#F29600;}
+</style>
+<g>
+	<rect class="st0" width="128" height="128"/>
+	<g>
+		<rect x="50.844" y="50.844" class="st1" width="4.978" height="4.978"/>
+	</g>
+	<g>
+		<rect x="72.178" y="72.178" class="st2" width="4.978" height="4.978"/>
+	</g>
+	<g>
+		<rect x="93.511" y="50.844" class="st1" width="4.978" height="4.978"/>
+	</g>
+	<g>
+		<rect x="114.844" y="72.178" class="st1" width="4.978" height="4.978"/>
+	</g>
+	<g>
+		<g>
+			<rect x="29.511" y="29.511" class="st2" width="4.978" height="4.978"/>
+		</g>
+		<g>
+			<rect x="72.178" y="29.511" class="st3" width="4.978" height="4.978"/>
+		</g>
+		<g>
+			<rect x="114.844" y="29.511" class="st4" width="4.978" height="4.978"/>
+		</g>
+		<g>
+			<g>
+				<rect x="8.178" y="8.178" class="st1" width="4.978" height="4.978"/>
+			</g>
+			<g>
+				<rect x="50.844" y="8.178" class="st5" width="4.978" height="4.978"/>
+			</g>
+			<g>
+				<rect x="93.511" y="8.178" class="st6" width="4.978" height="4.978"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<rect x="29.511" y="114.844" class="st3" width="4.978" height="4.978"/>
+		</g>
+		<g>
+			<rect x="72.178" y="114.844" class="st4" width="4.978" height="4.978"/>
+		</g>
+		<g>
+			<rect x="114.844" y="114.844" class="st5" width="4.978" height="4.978"/>
+		</g>
+		<g>
+			<g>
+				<rect x="8.178" y="93.511" class="st6" width="4.978" height="4.978"/>
+			</g>
+			<g>
+				<rect x="50.844" y="93.511" class="st1" width="4.978" height="4.978"/>
+			</g>
+			<g>
+				<rect x="93.511" y="93.511" class="st3" width="4.978" height="4.978"/>
+			</g>
+		</g>
+	</g>
+	<g><rect x="8.178" y="50.844" class="st3" width="4.978" height="4.978"/>
+	</g><g><rect x="29.511" y="72.178" class="st4" width="4.978" height="4.978"/></g></g></svg>

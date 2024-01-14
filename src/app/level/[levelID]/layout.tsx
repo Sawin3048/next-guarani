@@ -3,9 +3,9 @@
 import Link from "next/link";
 import React from "react";
 import Close from "@/app/ui/svg/close";
-import Heart from "@/app/ui/svg/heart";
 import ProgressBar from "@/app/ui/levels/progress-bar";
 import { useState } from "react";
+import Hearts from "@/app/ui/levels/heart";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [progress, setProgress] = useState("0");
@@ -14,25 +14,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <main className="flex items-center flex-col">
-      <div className="max-w-3xl w-full border flex p-3 gap-3 justify-between rounded-2xl items-center">
+    <main className="flex items-center flex-col max-w-3xl m-auto max-h-dvh">
+      <div className="max-w-3xl w-full border rounded-t-none md:rounded-t-2xl flex p-3 gap-4 justify-between rounded-2xl items-center bg-white">
         <Link className="text-gray-400" href={"/level"}>
           <Close />
         </Link>
         <ProgressBar percentage={`${progress}%`} />
-        <div className="text-red-500 flex">
-          <Heart />
-          <Heart />
-          <Heart />
-        </div>
+        <Hearts num={1}/>
       </div>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        className="my-10"
-        onChange={handelRange}
-      />
+      
+      <input type="range" onChange={handelRange} min={"0"} max={"100"} />
       {children}
     </main>
   );

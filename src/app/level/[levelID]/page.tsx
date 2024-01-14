@@ -1,10 +1,21 @@
 import { notFound } from "next/navigation"
+import Level from "@/app/ui/levels/level";
 
-
+const level = {
+  "type": "complete",
+  "data":{
+    "imageSrc": "/niña-comiendo.png",
+    "words": [{
+      "type": "space"
+    },{"type":"word","word":"akaru."}],
+    "options": ["Che", "Nde", "Ha'e", "Ore"],
+    "correctOption": "Che"
+  }
+};
 
 export default function Page({params}:any) {
   
   if (params.levelID !== '1') return notFound()
   
-  return <h1 className="text-7xl border h-96">Este seria el nivel uno</h1>
+  return <Level toRender={level}/>
 }

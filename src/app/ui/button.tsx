@@ -1,29 +1,23 @@
 import clsx from "clsx";
 import React from "react";
 
-type color = 'emerald' | 'pink' | 'teal' | 'purple' | 'gray'
-interface Params {  
-  children: React.ReactNode;
-  className?: string
-  color?: color
+interface Params {
+  active: boolean
+  onclick: () => void
+  children: React.ReactNode
 }
-// Clases
-//  mt-5
-export function ButtonD({ children, className, color }: Params) {
-  color = color || 'gray'
+
+export function Button({active, onclick, children}:Params) {
   return (
-    <button className={clsx(`${className} py-3 px-4 text-base font-bold rounded-xl border-2 border-b-4 border-${color}-500 shadow hover:bg-${color}-700 transform transition-transform active:scale-105`, {
-      "border-emerald-500": color === 'emerald',
-      "hover:bg-emerald-700": color === 'emerald',
-      "border-pink-500": color === 'pink',
-      "hover:bg-pink-700": color === 'pink',
-      "border-teal-500": color === 'teal',
-      "hover:bg-teal-700": color === 'teal',
-      "border-purple-500": color === 'purple',
-      "hover:bg-purple-700": color === 'purple',
-      "border-gray-500": color === 'gray',
-      "hover:bg-gray-700": color === 'gray',
-    })}>
+    <button className={clsx(`py-3 px-4 text-base font-bold rounded-xl border-2 border-b-4 shadow transform  active:scale-105 transition-colors duration-500`, {
+      "text-white": active,
+      "border-emerald-700": active,
+      "bg-emerald-700": active,
+      "hover:bg-emerald-700": active,
+      "border-neutral-400": !active,
+      "text-neutral-400": !active,
+      "active:transform-none": !active,  
+    }) } onClick={onclick} disabled={!active}>
       {children}
     </button>
   );

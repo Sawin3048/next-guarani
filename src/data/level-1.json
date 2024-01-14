@@ -2,7 +2,7 @@
   "type": "complete",
   "data":{
     "imageSrc": "/niña-comiendo",
-    "words": [3,"akaru."],
+    "words": [null,"akaru."],
     "options": ["Che", "Nde", "Ha'e", "Ore"],
     "correctOption": "Che"
   }
@@ -24,5 +24,16 @@
       "options": ["Ha'e", "Ñande", "Che", "Nde"],
       "correctOption": "Ha'e"
     }
+},
+{
+  "type": "complete",
+  "data":{
+    "imageSrc": "/niña-comiendo",
+    "words": [{
+      "type": "space"
+    },{"type":"word","word":"akaru."}],
+    "options": ["Che", "Nde", "Ha'e", "Ore"],
+    "correctOption": "Che"
+  }
 }
 ]
