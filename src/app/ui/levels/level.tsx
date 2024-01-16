@@ -19,7 +19,7 @@ type Words = {
   word: string
 }
 
-interface Level {
+export interface ILevel {
   type: LevelType;
   data: {
     imageSrc: string;
@@ -30,7 +30,7 @@ interface Level {
 }
 
 interface Params {
-  toRender: Level;
+  toRender: ILevel;
 }
 
 function WordsList({

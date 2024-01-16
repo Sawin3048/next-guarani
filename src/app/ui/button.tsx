@@ -3,11 +3,12 @@ import React from "react";
 
 interface Params {
   active: boolean
-  onclick: () => void
+  onclick?: () => void
   children: React.ReactNode
+  className:string
 }
 
-export function Button({active, onclick, children}:Params) {
+export function Button({active, onclick, children, className}:Params) {
   return (
     <button className={clsx(`py-3 px-4 text-base font-bold rounded-xl border-2 border-b-4 shadow transform  active:scale-105 transition-colors duration-500`, {
       "text-white": active,
@@ -17,7 +18,7 @@ export function Button({active, onclick, children}:Params) {
       "border-neutral-400": !active,
       "text-neutral-400": !active,
       "active:transform-none": !active,  
-    }) } onClick={onclick} disabled={!active}>
+    },className) } onClick={onclick} disabled={!active}>
       {children}
     </button>
   );
