@@ -8,7 +8,24 @@ import prisma from "@/db";
 import bcrypt from "bcrypt"
 import { nanoid } from "nanoid";
 import { PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
+
 // const bcrypt = require('bcrypt');
+
+export async function authenticate(prevState: string | undefined, formData: FormData) {
+  try {
+    signIn("credentials", formData)
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin": return "Credenciales no validas"
+        default: return "Algo fue mal"
+      }
+    }
+    throw error
+  }
+}
 
 interface IUser {
   username: string;
@@ -37,9 +54,15 @@ async function registerUser(user: IUser) {
     password: await bcrypt.hash(user.password, 10),
     id: nanoid(),
   }
-  return await prisma.user.create({
+  const dbUser = await prisma.user.create({
     data
   })
+  const form = new FormData()
+  form.set("user", dbUser.username)
+  form.set("password", dbUser.password)
+  authenticate("/levels", form)
+  console.log("llegamos despuues de authenticate")
+
 }
 
 export async function Register(formData: FormData) {
@@ -54,9 +77,9 @@ export async function Register(formData: FormData) {
     // console.log({ userValues })
     const user = await registerUser(userValues)
 
-    cookies().set("username", user.username, { httpOnly: true, sameSite: true })
-
+    // cookies().set("username", user.username, { httpOnly: true, sameSite: true })
     console.log("bien", user)
+    redirect('/level')
   } catch (error) {
     if (error instanceof ZodError) {
       console.log(error)
@@ -74,5 +97,4 @@ export async function Register(formData: FormData) {
     }
 
   }
-
 }

@@ -15,7 +15,7 @@ export const authConfig = {
       } else if (isLoggedIn) {
         return Response.redirect(new URL('/level', nextUrl));
       }
-      return true;
+      return false;
     },
   },
   providers: [], // Add providers with an empty array for now
