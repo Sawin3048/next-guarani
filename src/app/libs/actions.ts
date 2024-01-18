@@ -7,7 +7,7 @@ import { LoginDataNames } from "../register/form";
 import prisma from "@/db";
 import bcrypt from "bcrypt"
 import { nanoid } from "nanoid";
-import { PrismaClientUnknownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaClientValidationError } from "@prisma/client/runtime/library";
 // const bcrypt = require('bcrypt');
 
 interface IUser {
@@ -54,7 +54,7 @@ export async function Register(formData: FormData) {
     // console.log({ userValues })
     const user = await registerUser(userValues)
 
-    cookies().set("username", user.user, { httpOnly: true, sameSite: true })
+    cookies().set("username", user.username, { httpOnly: true, sameSite: true })
 
     console.log("bien", user)
   } catch (error) {
@@ -63,9 +63,16 @@ export async function Register(formData: FormData) {
       return "No pusiste bien las cosas"
     }
     if (error instanceof PrismaClientUnknownRequestError) {
+      console.log('unknowError')
       console.log(error.name, error.message)
     }
-    console.log({ error })
+    if (error instanceof PrismaClientValidationError) {
+      console.log('validationError')
+    }
+    if (error instanceof PrismaClientKnownRequestError) {
+      if (error.code === "P2002") return "El nombre de usuario ya esta en uso"
+    }
+
   }
 
 }

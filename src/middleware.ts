@@ -15,6 +15,6 @@ export function middleware(req: NextRequest) {
 
   const cookie = cookies().get('username')?.value
   console.log({ cookie })
-  if (cookie === 'gato') return undefined
+  if (cookie) return undefined
   return Response.redirect(new URL('/register', req.url))
 }
