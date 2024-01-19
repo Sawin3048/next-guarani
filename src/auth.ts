@@ -9,7 +9,7 @@ export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [Credentials({
     async authorize(credentials) {
-      console.log("estoy haciendo el auth", { credentials })
+
       const parsedCredentials = z
         .object({ user: z.string().min(3), password: z.string().min(8) })
         .safeParse(credentials);
@@ -18,11 +18,15 @@ export const { auth, signIn, signOut } = NextAuth({
         const { password, user } = parsedCredentials.data
 
         const dbUser = await prisma.user.findFirst({ where: { username: user } })
+
         if (!dbUser) return null
+
         const passwordMatch = await bcrypt.compare(password, dbUser.password)
-        if (passwordMatch) return dbUser
+        console.log({ passwordMatch })
+        if (passwordMatch) return { name: user }
       }
+      console.log('entre aca')
       return null
     },
-  }),]
+  }),],
 });

@@ -59,8 +59,8 @@ async function registerUser(user: IUser) {
   })
   const form = new FormData()
   form.set("user", dbUser.username)
-  form.set("password", dbUser.password)
-  authenticate("/levels", form)
+  form.set("password", user.password)
+  await authenticate("/levels", form)
   console.log("llegamos despuues de authenticate")
 
 }

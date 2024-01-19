@@ -6,9 +6,13 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
+      console.log({ url: nextUrl.pathname })
       const isLoggedIn = !!auth?.user;
       const isOnLevels = nextUrl.pathname.startsWith('/level');
+      const isOnRoot = nextUrl.pathname === '/'
+      if (nextUrl.pathname === '/bg2.svg') return true
 
+      if (isOnRoot) return true
       if (isOnLevels) {
         if (isLoggedIn) return true;
         return false;
