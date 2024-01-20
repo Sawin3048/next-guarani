@@ -5,7 +5,7 @@ interface Params {
   active: boolean
   onclick?: () => void
   children: React.ReactNode
-  className:string
+  className?:string
 }
 
 export function Button({active, onclick, children, className}:Params) {

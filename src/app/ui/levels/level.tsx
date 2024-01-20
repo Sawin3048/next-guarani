@@ -60,11 +60,11 @@ export default function Level({ toRender }: Params) {
   };
   return (
     <div className="bg-white text-2xl">
-      <div className="  flex w-full">
+      <div className="flex">
         <Image
           src={imageSrc}
-          width={"400"}
-          height={"400"}
+          width={300}
+          height={300}
           alt=""
           className="select-none"
         />
