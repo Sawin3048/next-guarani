@@ -1,6 +1,5 @@
 "use server"
 
-import { cookies } from "next/headers";
 import { redirect } from 'next/navigation'
 import { ZodError, z } from "zod"
 import { LoginDataNames } from "../register/form";
@@ -11,11 +10,10 @@ import { PrismaClientKnownRequestError, PrismaClientUnknownRequestError, PrismaC
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 
-// const bcrypt = require('bcrypt');
 
 export async function authenticate(prevState: string | undefined, formData: FormData) {
   try {
-    signIn("credentials", formData)
+    await signIn("credentials", formData)
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -44,8 +42,7 @@ const UsernameShema = z.object({
 })
 
 
-async function registerUser(user: IUser) {
-  console.log({ user })
+async function saveUser(user: IUser) {
   const data = {
     username: user.username,
     birth: user.birth,
@@ -54,15 +51,9 @@ async function registerUser(user: IUser) {
     password: await bcrypt.hash(user.password, 10),
     id: nanoid(),
   }
-  const dbUser = await prisma.user.create({
+  return await prisma.user.create({
     data
   })
-  const form = new FormData()
-  form.set("user", dbUser.username)
-  form.set("password", user.password)
-  await authenticate("/levels", form)
-  console.log("llegamos despuues de authenticate")
-
 }
 
 export async function Register(formData: FormData) {
@@ -74,12 +65,18 @@ export async function Register(formData: FormData) {
       birth: formData.get(LoginDataNames.birth),
       password: formData.get(LoginDataNames.password)
     })
-    // console.log({ userValues })
-    const user = await registerUser(userValues)
 
-    // cookies().set("username", user.username, { httpOnly: true, sameSite: true })
-    console.log("bien", user)
-    redirect('/level')
+    await saveUser(userValues)
+
+    const form = new FormData()
+    form.set("user", userValues.username)
+    form.set("password", userValues.password)
+
+
+    await authenticate("", form)
+
+
+
   } catch (error) {
     if (error instanceof ZodError) {
       console.log(error)
@@ -96,5 +93,8 @@ export async function Register(formData: FormData) {
       if (error.code === "P2002") return "El nombre de usuario ya esta en uso"
     }
 
+  }
+  finally {
+    redirect('/level')
   }
 }

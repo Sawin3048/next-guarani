@@ -5,7 +5,7 @@ export default function Home() {
     <main className="text-6xl">
       Aprende Guaraní
       <br />
-      <Link href={ '/level'}>Intentar</Link>
+      <Link className="border-4 m-5" href={ '/level'}>Intentar</Link>
     </main>
   );
 }

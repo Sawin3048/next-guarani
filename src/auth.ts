@@ -23,10 +23,16 @@ export const { auth, signIn, signOut } = NextAuth({
 
         const passwordMatch = await bcrypt.compare(password, dbUser.password)
         console.log({ passwordMatch })
-        if (passwordMatch) return { name: user }
+        if (passwordMatch) return { id: dbUser.id }
       }
       console.log('entre aca')
       return null
     },
   }),],
+  // callbacks: {
+  //   redirect: async ({ baseUrl, url }) => {
+  //     console.log({ baseUrl, url })
+  //     return new URL('/level', url).toString()
+  //   }
+  // },
 });

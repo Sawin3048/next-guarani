@@ -5,6 +5,7 @@ import Gender from "../ui/svg/gender";
 import Calendar from "../ui/svg/calendar";
 import { Button } from "../ui/button";
 import Password from "../ui/svg/password";
+import Link from "next/link";
 
 export const LoginDataNames = {
   username: "username",
@@ -118,10 +119,15 @@ export async function LoginForm() {
           />
           <Password className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
         </div>
-      </div>      
+      </div>
       <Button className="w-full mt-7" active>
         Registrase
       </Button>
+      <span className="text-center mt-2 underline text-blue-500 block">
+
+
+      <Link href={'/login'}> ¿Ya tienes una cuenta? Inicia Seción</Link>
+      </span>
     </form>
   );
 }
