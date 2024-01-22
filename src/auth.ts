@@ -23,7 +23,8 @@ export const { auth, signIn, signOut } = NextAuth({
 
         const passwordMatch = await bcrypt.compare(password, dbUser.password)
         console.log({ passwordMatch })
-        if (passwordMatch) return { id: dbUser.id }
+        console.log(dbUser)
+        if (passwordMatch) return { name: dbUser.id }
       }
       console.log('entre aca')
       return null

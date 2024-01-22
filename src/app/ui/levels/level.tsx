@@ -4,59 +4,37 @@ import Image from "next/image";
 import { ButtonLink } from "../buttond";
 import React, { useState } from "react";
 import { Button } from "../button";
+import { ILevel, Words } from "./types";
 
-const levelTypes = {
-  complete: "complete",
-  selectPair: "selectPair",
-};
-
-type LevelType = (typeof levelTypes)[keyof typeof levelTypes];
-
-type Words = {
-  type:"space"
-} | {
-  type: "word",
-  word: string
-}
-
-export interface ILevel {
-  type: LevelType;
-  data: {
-    imageSrc: string;
-    words: Words[];
-    options: string[];
-    correctOption: string;
-  };
-}
-
-interface Params {
-  toRender: ILevel;
-}
-
-function WordsList({
-  words,
-  selected,
-}: {
+interface P {
   words: Words[];
   selected?: React.ReactNode;
-}) {
+  }
+
+function WordsList({ words, selected, }: P) {
   return words.map((word) => {
-    // if (selected === "") return selected;
     if (word.type === "space") 
     return (
       <span className="w-[200ch] border-b-2 border-gray-300 h-7 text-white select-none" >
-        ________
+        __________
       </span>
       );
     return <span key={word.word}>{word.word}</span>;
   });
 }
 
+
+interface Params {
+  toRender: ILevel;
+}
+
 export default function Level({ toRender }: Params) {
   const { imageSrc, words, options, correctOption } = toRender.data;
-  const [selected, setSelected] = useState<null | string>(null);
+  
+
+  const [selected, setSelected] = useState<string[]>([]);
   const setSelectedState = (option: string) => {
-    setSelected(option);
+    setSelected(prev => [option])
   };
   return (
     <div className="bg-white text-2xl">
@@ -88,9 +66,10 @@ export default function Level({ toRender }: Params) {
       </div>
       <div>
         <Button
-          active={Boolean(selected)}
+          active={Boolean(selected[0])}
           onclick={() => {
-            alert(selected === correctOption);
+            console.log(selected[0], correctOption)
+            alert(selected[0] === correctOption);
           }}
         >
           Comprobar
