@@ -26,12 +26,14 @@ function WordsList({ words, selected, }: P) {
 
 interface Params {
   toRender: ILevel;
+  onFail: () => void,
+  onComplete: ()=>void
 }
 
-export default function Level({ toRender }: Params) {
+export default function Level({ toRender,onComplete,onFail }: Params) {
   const { imageSrc, words, options, correctOption } = toRender.data;
-  
-
+    
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [selected, setSelected] = useState<string[]>([]);
   const setSelectedState = (option: string) => {
     setSelected(prev => [option])
@@ -68,12 +70,17 @@ export default function Level({ toRender }: Params) {
         <Button
           active={Boolean(selected[0])}
           onclick={() => {
-            console.log(selected[0], correctOption)
-            alert(selected[0] === correctOption);
+            setIsCorrect(selected[0] === correctOption)
           }}
         >
           Comprobar
         </Button>
+      </div>
+      <div>
+        {
+          
+
+        }
       </div>
     </div>
   );

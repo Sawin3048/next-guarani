@@ -1,39 +1,85 @@
 import { ILevel } from "./types";
 
-import { StateCreator, create } from 'zustand'
+import { create } from 'zustand'
 
 interface State{
   levels: ILevel[]
   current: string
-  passed: string[]
+  completed: string[]
   failed: string[]
   amount: number
   toPlay: string[]
-  played: string[]
+  finish: boolean
 }
 
 interface Actions {
+  init: (levels: ILevel[]) => void
+  complete: () => void
+  fail: () => void
 
 }
 
-const useStore = create<State>((set) =>
+export const useStore = create<State & Actions>((set) =>
 ({
   levels: [],
   amount: 0,
   toPlay: [],
-  played:[],
   failed: [],
-  passed: [],
+  completed: [],
   current: '',
   finish: false,
-  complete: () => set((state) => {
+  init: (levels:ILevel[]) => set(() => {
     return {
-      passed: [...state.passed, state.current],
-      toPlay: [...state.toPlay.filter(id => !(id === id))],
-      current: [state.toPlay[1]]
+      levels,
+      amount: levels.length,
+      toPlay: levels.map(l => l.id),
+      current: levels[0].id,
+      finish: false,
+      played: [],
+      failed: [],
+      completed: []
     }
-  
-  })
+  }),
+  complete: () => set(state => {
+
+    let finish = !state.toPlay[1]
+    let toPlay = [...state.toPlay.filter(id => !(id === state.current))]
+    let failed = state.failed 
+    
+    if (finish && failed.length > 0) {
+        finish = false
+        toPlay.push(...state.failed)
+        failed = []
+      
+    }
+
+    const current = toPlay[0] || ''
+    return {
+      completed: [...state.completed, state.current],
+      toPlay,
+      current,
+      finish,
+      failed
+    }
+  }),
+  fail: () => (set(state => {
+    let finish = !state.toPlay[1]
+    let toPlay = [...state.toPlay.filter(id => !(id === state.current))]
+    let failed = [...state.failed, state.current]
+
+    if (finish && failed.length > 0) {
+      finish = false
+      toPlay.push(...failed)
+      failed = []
+    }
+    const current = toPlay[0] || ''
+    return {
+      failed,
+      toPlay,
+      current,
+      finish
+    }
+  }))
 }))
 
 
