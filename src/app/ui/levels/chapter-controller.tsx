@@ -2,7 +2,7 @@ import { ILevel } from "./types";
 
 import { create } from 'zustand'
 
-interface State{
+export interface State{
   levels: ILevel[]
   current: string
   completed: string[]
@@ -13,7 +13,7 @@ interface State{
   heart: number
 }
 
-interface Actions {
+export interface Actions {
   init: (levels: ILevel[]) => void
   complete: () => void
   fail: () => void
@@ -87,13 +87,5 @@ export const useStore = create<State & Actions>((set) =>
 }))
 
 
-class Chapter{
-  levelErros: any[] = []
-  levels: ILevel[] =[]
-  state = {}
 
-  constructor(levels: ILevel[]) {
-    this.levels = levels
-  }
-}
 

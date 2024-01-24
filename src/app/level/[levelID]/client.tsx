@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 
 
 function Client() {
+  
   const store = useStore()
   const [avanced, setAvanced] = useState(0)
 
@@ -32,7 +33,7 @@ function Client() {
       setAvanced(0)
     }}>Volver a jugar</button>
   </>
-  
+  if(store.heart === 0) return <>Perdiste por bobo</>
   const currentLevel = store.levels.find(l => l.id === store.current)
   
   return currentLevel ?  <div className="flex flex-col max-w-3xl m-auto justify-between">
@@ -42,10 +43,9 @@ function Client() {
         </Link>
       <ProgressBar percentage={`${100 / store.amount * avanced}%`} />
       <Hearts num={store.heart} />
-      </nav>
+    </nav>
+
     <code className="bg-white text-lg">{JSON.stringify(a,null,2)}</code>
-    <button className="border-2 border-black" onClick={store.complete}>Complete</button>
-    <button className="border-2 border-black" onClick={store.fail}>fail</button>
     <Level
       toRender={currentLevel}
       onComplete={store.complete}
