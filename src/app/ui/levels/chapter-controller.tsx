@@ -9,7 +9,8 @@ interface State{
   failed: string[]
   amount: number
   toPlay: string[]
-  finish: boolean
+  finish: boolean,
+  heart: number
 }
 
 interface Actions {
@@ -28,6 +29,7 @@ export const useStore = create<State & Actions>((set) =>
   completed: [],
   current: '',
   finish: false,
+  heart: 3,
   init: (levels:ILevel[]) => set(() => {
     return {
       levels,
@@ -37,7 +39,8 @@ export const useStore = create<State & Actions>((set) =>
       finish: false,
       played: [],
       failed: [],
-      completed: []
+      completed: [],
+      heart: 3
     }
   }),
   complete: () => set(state => {
@@ -66,7 +69,7 @@ export const useStore = create<State & Actions>((set) =>
     let finish = !state.toPlay[1]
     let toPlay = [...state.toPlay.filter(id => !(id === state.current))]
     let failed = [...state.failed, state.current]
-
+    let heart = state.heart - 1
     if (finish && failed.length > 0) {
       finish = false
       toPlay.push(...failed)
@@ -77,7 +80,8 @@ export const useStore = create<State & Actions>((set) =>
       failed,
       toPlay,
       current,
-      finish
+      finish,
+      heart
     }
   }))
 }))

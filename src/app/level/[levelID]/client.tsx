@@ -41,7 +41,7 @@ function Client() {
           <Close />
         </Link>
       <ProgressBar percentage={`${100 / store.amount * avanced}%`} />
-      <Hearts num={1} />
+      <Hearts num={store.heart} />
       </nav>
     <code className="bg-white text-lg">{JSON.stringify(a,null,2)}</code>
     <button className="border-2 border-black" onClick={store.complete}>Complete</button>
