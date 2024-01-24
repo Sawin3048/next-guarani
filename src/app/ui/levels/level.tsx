@@ -73,20 +73,8 @@ export default function Level({ toRender,onComplete,onFail,avance }: Params) {
           </div>
         </div>
       </div>
-      <div>
-        <Button
-          className={`${(isCorrect !== null) ? "hidden": undefined }`}
-          active={Boolean(selected[0])}
-          onclick={() => {
-            const correct = selected[0] === correctOption
-            setIsCorrect(correct)
-            if (correct) avance()
-          }}
-        >
-          Comprobar
-        </Button>
-      </div>
-      <div>
+      <hr className="border-b-2"/>
+      <div className="flex justify-between p-6">
         {
           isCorrect !== null && <LevelMessage
             level={toRender}
@@ -94,8 +82,25 @@ export default function Level({ toRender,onComplete,onFail,avance }: Params) {
             si={onComplete}
             no={onFail}
           />
-
         }
+        <Button
+          active={Boolean(selected[0])}
+          onclick={() => {
+            if (isCorrect === null) {
+              const correct = selected[0] === correctOption
+              setIsCorrect(correct)
+              if (correct) avance()
+            }
+            else {
+            
+            }
+          }}
+        >
+          {(isCorrect === null) ? "Comprobar" : "Continuar"}
+        </Button>
+      </div>
+      <div>
+        
         </div>
     </div>
   );
@@ -107,6 +112,7 @@ interface Pa {
   si: () => void
   no:()=>void
 }
+
 function LevelMessage({ level,complete,no,si }: Pa) {
   
   const palabras = level.data.words.map(w => {
@@ -115,9 +121,13 @@ function LevelMessage({ level,complete,no,si }: Pa) {
   })
 
 
-  return <>
+  return <div>
+  {complete ? <>Bien</> : <>
     <h4 className="">Solución Correcta</h4>
     <p>{palabras.map(p => p ? p : level.data.correctOption).join(" ")}</p>
+    </>
+    }
+  
     <Button active onclick={complete ? si : no}>Continuar</Button>
-  </>
+  </div>
 }
