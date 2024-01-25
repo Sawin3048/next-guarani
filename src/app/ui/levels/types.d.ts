@@ -18,7 +18,7 @@ export interface ILevel {
     imageSrc: string;
     words: Words[];
     options: string[];
-    correctOption: string;
+    correctOption: string[];
   };
   id: string
 }

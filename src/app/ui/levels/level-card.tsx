@@ -45,7 +45,7 @@ export default function LevelSelector({
         <h3 className="font-extrabold mt-4 text-xl">{ title }</h3>
         <h3 className="font-medium mt-1 -xl opacity-90">{subTitle}</h3>
         <Link href={btnUrl}>
-          <ButtonLink className="w-full mt-5" color={color}>Empezar</ButtonLink>
+          <ButtonLink  className="w-full mt-5" color={color}>Empezar</ButtonLink>
         </Link>
       </div>
         <div className="grid place-content-center w-full md:pl-16 ">
@@ -54,7 +54,6 @@ export default function LevelSelector({
           alt="Niño con una lupa"
           width={220}
           height={220}
-          className=""
         />
       </div>
     </section>

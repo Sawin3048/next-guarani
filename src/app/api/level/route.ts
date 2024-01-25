@@ -9,11 +9,20 @@ const levels = [{
         "type": "space"
       },
       {
-        "type": "word", "word": "akaru."
-      }
+        "type": "word", "word": "akaru"
+      },
+      {
+        "type": "word", "word": "bori-bori,"
+      },
+      {
+        "type": "word", "word": "ko"
+      },
+      {
+        "type": "word", "word": "ka'aru."
+      },
     ],
-    "options": ["Che", "Nde", "Ha'e", "Ore"],
-    "correctOption": "Che",
+    "options": ["Che", "Nde", "Ha'e", "Ore", "juan", "pedro", "jaime", "nadie"],
+    "correctOption": ["Che"],
   },
   "id": "kalsdjflsdñfkasdjfñ"
 }, {
@@ -29,7 +38,7 @@ const levels = [{
       }
     ],
     "options": ["No se", "quien sabe", "Ha'e", "tambien"],
-    "correctOption": "Ha'e",
+    "correctOption": ["Ha'e"],
   },
   "id": "dfasdfsd"
 }, {
@@ -45,13 +54,13 @@ const levels = [{
       }
     ],
     "options": ["adsfdf", "quien", "por?", "para", "cual", "Cual"],
-    "correctOption": "Cual",
+    "correctOption": ["Cual"],
   },
   "id": "erer"
 }]
 
 export async function GET() {
   const a = await auth()
-  console.log(a)
+  console.log('peticion a GET', a)
   return Response.json(levels)
 }

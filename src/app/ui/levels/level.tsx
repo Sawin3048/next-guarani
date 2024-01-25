@@ -4,7 +4,9 @@ import Image from "next/image";
 import { ButtonLink } from "../buttond";
 import React, { useEffect, useState } from "react";
 import { Button } from "../button";
-import { ILevel, Words } from "./types";
+import { Words } from "./types";
+import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
+import { createStore } from "zustand";
 
 interface P {
   words: Words[];
@@ -19,45 +21,62 @@ function WordsList({ words, selected, }: P) {
         __________
       </span>
       );
-    return <span key={word.word}>{word.word}</span>;
+    return <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
   });
 }
 
+interface State {
+  playing: boolean,
+  selectedWords: string[]
+  isCorrect: boolean | null
+ }
+interface Actions {}
 
-interface Params {
-  toRender: ILevel;
-  onFail: () => void,
-  onComplete: () => void
-  avance: ()=> void
-}
+const useCompleteLevelStore = createStore<State & Actions>(set => ({
+  playing: true,
+  selectedWords: [],
+  isCorrect: null
+}))
 
-export default function Level({ toRender,onComplete,onFail,avance }: Params) {
-  const { imageSrc, words, options, correctOption } = toRender.data;
+
+export default function Level() {
+  const store = useChapter()
+  
+  const level = store.current
+  const { imageSrc, words, options, correctOption } = level.data;
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [selected, setSelected] = useState<string[]>([]);
   
     const setSelectedState = (option: string) => {
-      setSelected(prev => [option])
+      setSelected(prev => [...prev,option])
     };
 
   useEffect(() => {
     setIsCorrect(null)
     setSelected([])
-  }, [toRender.id])
+  }, [level.id])
 
   return (
-    <div className="bg-white text-2xl">
-      <div className="flex">
+    <div className="bg-white text-2xl font-light p-6">
+      <div className="md:flex">
+        <div className="grid content-center justify-center">
         <Image
           src={imageSrc}
           width={300}
           height={300}
           alt=""
           className="select-none"
-        />
-        <div className="w-full">
+          />
+        </div>
+        <div >
+          <p className="text-nowrap">
+
           <WordsList words={words} selected={selected} />
-          <div className="mt-10 flex gap-4">
+          </p>
+          
+        </div>
+      </div>
+      <div className="mt-10 flex gap-2 flex-wrap justify-center">
             {options.map((option) => {
               return (
                 <ButtonLink
@@ -71,25 +90,22 @@ export default function Level({ toRender,onComplete,onFail,avance }: Params) {
               );
             })}
           </div>
-        </div>
-      </div>
       <hr className="border-b-2"/>
       <div className="flex justify-between p-6">
         {
           isCorrect !== null && <LevelMessage
-            level={toRender}
             complete={isCorrect}
-            si={onComplete}
-            no={onFail}
           />
         }
         <Button
           active={Boolean(selected[0])}
           onclick={() => {
             if (isCorrect === null) {
-              const correct = selected[0] === correctOption
+              const correct = selected[0] === correctOption[0]
               setIsCorrect(correct)
-              if (correct) avance()
+              store.updateUI(correct)
+              console.log(correct,selected,correctOption)
+
             }
             else {
             
@@ -107,13 +123,12 @@ export default function Level({ toRender,onComplete,onFail,avance }: Params) {
 }
 
 interface Pa {
-  level: ILevel
   complete: boolean
-  si: () => void
-  no:()=>void
 }
 
-function LevelMessage({ level,complete,no,si }: Pa) {
+function LevelMessage({ complete }: Pa) {
+  const store = useChapter()
+  const level = store.current
   
   const palabras = level.data.words.map(w => {
     if (w.type === "word") return w.word
@@ -128,6 +143,6 @@ function LevelMessage({ level,complete,no,si }: Pa) {
     </>
     }
   
-    <Button active onclick={complete ? si : no}>Continuar</Button>
+    <Button active onclick={complete ? store.complete : store.fail}>Continuar</Button>
   </div>
 }
