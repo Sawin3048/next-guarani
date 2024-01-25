@@ -1,60 +1,108 @@
 "use client";
 
 import Image from "next/image";
-import { ButtonLink } from "../buttond";
-import React, { useEffect, useState } from "react";
-import { Button } from "../button";
-import { Words } from "./types";
+import { ButtonLink } from "../../buttond";
+import React, { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { Button } from "../../button";
+import { Words } from "../types";
 import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
-import { createStore } from "zustand";
+import { create } from "zustand";
 
 interface P {
   words: Words[];
   selected?: React.ReactNode;
+  rm: (id:string)=>void
   }
 
-function WordsList({ words, selected, }: P) {
+function WordsList({ words, selected,rm }: P) {
   return words.map((word) => {
     if (word.type === "space") 
-    return (
+      return (
       <span className="w-[200ch] border-b-2 border-gray-300 h-7 text-white select-none" >
-        __________
+        __________<Button active > Palabra</Button>
       </span>
       );
     return <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
   });
 }
 
-interface State {
+// Store types
+export interface State {
   playing: boolean,
   selectedWords: string[]
   isCorrect: boolean | null
- }
-interface Actions {}
+}
 
-const useCompleteLevelStore = createStore<State & Actions>(set => ({
+export interface Actions {
+  setIsCorrect: (correct: boolean) => void
+  addWord: (word: string) => void
+  removeWord: (word:string) => void
+}
+// Store
+export const useCompleteLevelStore = create<State & Actions>((set) =>
+({
   playing: true,
   selectedWords: [],
-  isCorrect: null
+  isCorrect: null,
+
+  setIsCorrect: (correct) => set(state => {
+    
+    return {
+      isCorrect: correct
+    }
+  }),
+  addWord: (word) => set(state => {
+    
+    return {
+      selectedWords: [...state.selectedWords, word]
+    }
+  }),
+
+  removeWord: (word) => set(state => {
+    
+    return {
+      selectedWords : state.selectedWords.filter(w => w !== word)
+    }
+  })
+
 }))
 
+// Context
+const placeholder = { } as State & Actions
+const CompleteLevelContext = createContext<State & Actions>(placeholder)
 
+export function useCompleteLevel() {
+  return useContext(CompleteLevelContext)
+}
+
+export function CompleteLevelProvider({ children }: { children: ReactNode }) {
+  const store = useCompleteLevelStore()
+  
+  return (<CompleteLevelContext.Provider value={store}>
+    {children}
+  </CompleteLevelContext.Provider>)
+}
+
+// Level
 export default function Level() {
   const store = useChapter()
-  
-  const level = store.current
-  const { imageSrc, words, options, correctOption } = level.data;
+  const levelStore = useCompleteLevel()
+
+  const { imageSrc, words, options, correctOption } = store.current.data
+
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
   const [selected, setSelected] = useState<string[]>([]);
+
+  const rm = (id:string) => setSelected(prev=> prev.filter(previd => previd !== id))
   
-    const setSelectedState = (option: string) => {
-      setSelected(prev => [...prev,option])
-    };
+  const setSelectedState = (option: string) => {
+     setSelected(prev => [...prev,option])
+  };
 
   useEffect(() => {
     setIsCorrect(null)
     setSelected([])
-  }, [level.id])
+  }, [store.current.id])
 
   return (
     <div className="bg-white text-2xl font-light p-6">
@@ -69,9 +117,9 @@ export default function Level() {
           />
         </div>
         <div >
-          <p className="text-nowrap">
+          <p className="text">
 
-          <WordsList words={words} selected={selected} />
+          <WordsList words={words} selected={levelStore.selectedWords} rm={rm} />
           </p>
           
         </div>
@@ -80,7 +128,7 @@ export default function Level() {
             {options.map((option) => {
               return (
                 <ButtonLink
-                  callback={() => setSelectedState(option)}
+                  callback={() => levelStore.addWord(option)}
                   key={option}
                   color="gray"
                   className="select-none hover:bg-inherit"
@@ -98,10 +146,10 @@ export default function Level() {
           />
         }
         <Button
-          active={Boolean(selected[0])}
+          active={Boolean(levelStore.selectedWords[0])}
           onclick={() => {
-            if (isCorrect === null) {
-              const correct = selected[0] === correctOption[0]
+            if (levelStore.isCorrect === null) {
+              const correct = levelStore.selectedWords[0] === correctOption[0]
               setIsCorrect(correct)
               store.updateUI(correct)
               console.log(correct,selected,correctOption)

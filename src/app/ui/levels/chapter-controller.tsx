@@ -47,7 +47,7 @@ export const useStore = create<State & Actions>((set) =>
     
     return {
       isReady: true,
-      levels,
+      levels, 
       amount: levels.length,
       toPlay: levels.map(l => l.id),
       currentID,

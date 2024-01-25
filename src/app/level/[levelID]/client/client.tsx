@@ -1,5 +1,5 @@
 "use client"
-import Level from "@/app/ui/levels/level"
+import Level, { CompleteLevelProvider } from "@/app/ui/levels/complete-level/level"
 import { useChapter } from "../context/chapter-handler-context"
 import LevelNav from "./nav"
 
@@ -28,7 +28,9 @@ function Client() {
   return store.isReady ?  <div className="flex flex-col max-w-3xl m-auto justify-between">
     <LevelNav/>
     {/* <code className="bg-white text-lg">{JSON.stringify(a,null,2)}</code> */}
+    <CompleteLevelProvider >
     <Level />
+    </CompleteLevelProvider>
     
   </div>
   :  <></>
