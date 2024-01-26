@@ -16,6 +16,7 @@ export function CompleteLevelProvider({ children }: { children: ReactNode }) {
   
   useEffect(() => {
     store.reset()
+    store.setLevel(chapter.current)
   }, [chapter.current.id])
   
   return (<CompleteLevelContext.Provider value={store}>

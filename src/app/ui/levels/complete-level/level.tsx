@@ -9,15 +9,10 @@ import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-contex
 import { useCompleteLevel } from '@/app/ui/levels/complete-level/context'
 
 
-interface P {
-  words: Words[];
-  selected?: React.ReactNode;
-  rm?: (id:string)=>void
-  }
-
-function WordsList({ words, selected, rm }: P) {
-  
-  return words.reduce((lastWord,currentWord) => {
+function WordsList() {
+  const level = useCompleteLevel().level
+  const words = level.data.words
+  words.reduce((lastWord,currentWord) => {
     console.log({lastWord, currentWord})
     return []
     
@@ -29,6 +24,7 @@ function WordsList({ words, selected, rm }: P) {
     //   );
     // return <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
   },[]);
+  return []
 }
 
 
@@ -55,7 +51,7 @@ export default function Level() {
         <div >
           <p className="text">
 
-          <WordsList words={words} selected={levelStore.selectedWords} />
+          <WordsList />
           </p>
           
         </div>

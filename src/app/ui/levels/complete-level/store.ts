@@ -1,9 +1,11 @@
 import { create } from "zustand"
+import { ILevel } from "../types"
 
 export interface State {
   playing: boolean,
   selectedWords: string[]
   isCorrect: boolean | null
+  level: ILevel
 }
 
 export interface Actions {
@@ -11,6 +13,7 @@ export interface Actions {
   addWord: (word: string) => void
   removeWord: (word: string) => void
   reset: () => void
+  setLevel: (level: ILevel) => void
 }
 // Store
 export const useCompleteLevelStore = create<State & Actions>((set) =>
@@ -18,7 +21,7 @@ export const useCompleteLevelStore = create<State & Actions>((set) =>
   playing: true,
   selectedWords: [],
   isCorrect: null,
-
+  level: {} as ILevel,
   setIsCorrect: (correct) => set(state => {
 
     return {
@@ -46,6 +49,9 @@ export const useCompleteLevelStore = create<State & Actions>((set) =>
       isCorrect: null,
       selectedWords: [],
     }
+  }),
+  setLevel: level => set(state => {
+    return { level }
   })
 
 }))
