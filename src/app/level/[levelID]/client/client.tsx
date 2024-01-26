@@ -1,38 +1,34 @@
 "use client"
-import Level, { CompleteLevelProvider } from "@/app/ui/levels/complete-level/level"
+import { CompleteLevelProvider } from "@/app/ui/levels/complete-level/context"
 import { useChapter } from "../context/chapter-handler-context"
 import LevelNav from "./nav"
+import Level from "@/app/ui/levels/complete-level/level"
+import { LevelMessage } from "@/app/ui/levels/complete-level/message"
 
 
 function Client() {  
-  const store = useChapter()
+  const chapter = useChapter()
 
-  // const a = {
-  //   amount: store.amount,
-  //   toPlay: store.toPlay,
-  //   current: store.currentID,
-  //   failed: store.failed,
-  //   completed: store.completed,
-  //   finish: store.finish,
-  // }
-
-  if (store.finish) return <>
+  if (chapter.finish) return <>
     Haz terminado Felicidales
     <button onClick={() => {
-      store.init(store.levels)
+      chapter.init(chapter.levels)
     }}>Volver a jugar</button>
   </>
 
-  if(store.heart === 0) return <>Perdiste por bobo</>
+  if(chapter.heart === 0) return <>Perdiste por bobo</>
   
-  return store.isReady ?  <div className="flex flex-col max-w-3xl m-auto justify-between">
-    <LevelNav/>
-    {/* <code className="bg-white text-lg">{JSON.stringify(a,null,2)}</code> */}
-    <CompleteLevelProvider >
-    <Level />
-    </CompleteLevelProvider>
-    
-  </div>
+  return chapter.isReady ?
+    <div className="flex flex-col max-w-3xl justify-between m-auto h-svh bg-white">
+      <LevelNav/>
+      <CompleteLevelProvider >
+        <Level />
+        <div>
+          <hr className="border-2"/>
+          <LevelMessage />
+        </div>
+      </CompleteLevelProvider>
+    </div>
   :  <></>
 
 }

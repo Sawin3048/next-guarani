@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className + ' md:pt-4 bg-right-bottom bg-cover '} style={{background:"url(/bg2.svg) ", backgroundSize:"300px" }}>{children}</body>
+      <body className={inter.className + '  bg-cover '} style={{background:"url(/bg2.svg) ", backgroundSize:"300px" }}>{children}</body>
     </html>
   )
 }
