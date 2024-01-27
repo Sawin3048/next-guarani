@@ -10,8 +10,10 @@ import { useCompleteLevel } from '@/app/ui/levels/complete-level/context'
 
 
 function WordsList() {
-  const store = useCompleteLevel()
-  const words = store.level.data?.words
+  const chapter = useChapter()
+  const level = useCompleteLevel()
+  const selected = level.selectedWords
+  const words = chapter.current.data.words
   console.log(words)
 
   // words.reduce((lastWord,currentWord) => {
