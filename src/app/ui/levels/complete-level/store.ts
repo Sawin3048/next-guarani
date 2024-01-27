@@ -51,7 +51,7 @@ export const useCompleteLevelStore = create<State & Actions>((set) =>
     }
   }),
   setLevel: level => set(state => {
-    return { level }
+    return { level: level }
   })
 
 }))

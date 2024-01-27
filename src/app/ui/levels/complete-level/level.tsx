@@ -10,20 +10,22 @@ import { useCompleteLevel } from '@/app/ui/levels/complete-level/context'
 
 
 function WordsList() {
-  const level = useCompleteLevel().level
-  const words = level.data.words
-  words.reduce((lastWord,currentWord) => {
-    console.log({lastWord, currentWord})
-    return []
+  const store = useCompleteLevel()
+  const words = store.level.data?.words
+  console.log(words)
+
+  // words.reduce((lastWord,currentWord) => {
+  //   console.log({lastWord, currentWord})
+  //   return []
     
-    // if (word.type === "space")
-    //   return (
-    //   <span className="w-[200ch] border-b-2 border-gray-300 h-7 text-white select-none" >
-    //     __________<Button active > Palabra</Button>
-    //   </span>
-    //   );
-    // return <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
-  },[]);
+  //   // if (word.type === "space")
+  //   //   return (
+  //   //   <span className="w-[200ch] border-b-2 border-gray-300 h-7 text-white select-none" >
+  //   //     __________<Button active > Palabra</Button>
+  //   //   </span>
+  //   //   );
+  //   // return <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
+  // },[]);
   return []
 }
 
