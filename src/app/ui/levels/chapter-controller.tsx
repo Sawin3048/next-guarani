@@ -13,7 +13,9 @@ export interface State{
   current: ILevel
   progressUI: number,
   heartUI: number,
-  isReady: boolean
+  isReady: boolean,
+  successAudio: HTMLAudioElement,
+  failAudio: HTMLAudioElement
 }
 
 export interface Actions {
@@ -40,6 +42,9 @@ export const useStore = create<State & Actions>((set) =>
   // UI state
   heartUI: 3,
   progressUI: 0,
+  // Const
+  successAudio: new Audio('/success.mp3'),
+  failAudio: new Audio('/fail.mp3'),
   
   init: (levels: ILevel[]) => set(() => {
     const currentID = levels[0].id

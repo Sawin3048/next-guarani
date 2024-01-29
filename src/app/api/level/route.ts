@@ -19,6 +19,8 @@ const levels = [{
       },
       {
         "type": "word", "word": "ka'aru."
+      }, {
+        "type": "space"
       },
     ],
     "options": ["Che", "Nde", "Ha'e", "Ore", "juan", "pedro", "jaime", "nadie"],

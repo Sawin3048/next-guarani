@@ -1,34 +1,77 @@
 "use client";
 
 import Image from "next/image";
-import { ButtonLink } from "../../buttond";
-import React, { useEffect, useState } from "react";
-import { Button } from "../../button";
-import { Words } from "../types";
 import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
 import { useCompleteLevel } from '@/app/ui/levels/complete-level/context'
+import clsx from "clsx";
 
+type color = "emerald" | "pink" | "teal" | "purple" | "gray";
+interface Par {
+  children: React.ReactNode;
+  className?: string;
+  onclick?: () => void;
+  disabled?: boolean
+}
+
+export function WordButton({ children, className, onclick, disabled }: Par){
+  return (
+    <button
+      disabled={!!disabled}
+      className={clsx(className,
+        `py-3 px-4 text-base font-bold rounded-xl border-2 border-b-4 shadow  text-nowrap border-neutral-400`, {
+          "text-neutral-400": disabled,
+          "active:scale-105": !disabled,
+          "text-neutral-800": !disabled
+        }
+        
+      )}
+      onClick={onclick}
+    >
+      {children}
+    </button>
+  );
+}
 
 function WordsList() {
   const chapter = useChapter()
   const level = useCompleteLevel()
   const selected = level.selectedWords
   const words = chapter.current.data.words
-  console.log(words)
 
-  // words.reduce((lastWord,currentWord) => {
-  //   console.log({lastWord, currentWord})
-  //   return []
+  const transformed = words.reduce<{render: React.ReactNode[],used:number}>((lastState,word) => {
+    let used = false
+    let toAdd 
+    const spaceValue = selected[lastState.used]
     
-  //   // if (word.type === "space")
-  //   //   return (
-  //   //   <span className="w-[200ch] border-b-2 border-gray-300 h-7 text-white select-none" >
-  //   //     __________<Button active > Palabra</Button>
-  //   //   </span>
-  //   //   );
-  //   // return <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
-  // },[]);
-  return []
+    if (word.type === "space") {
+      toAdd =   (
+        <span className="text-nowrap text block w-fit relative border-b-2 text-transparent border-gray-300   select-none" >
+          __________
+          {spaceValue !== undefined && <WordButton
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white"
+            onclick={() => level.removeWord(spaceValue)}
+            disabled ={!level.playing}
+          >
+            {used = true}
+            {spaceValue}
+          </WordButton>
+        }
+        </span>
+      )
+
+    } else {
+      toAdd = <span className="ml-[.3rem]" key={word.word}>{word.word}</span>;
+    }
+  return {
+      render: [...lastState.render, toAdd],
+      used: used ? lastState.used + 1 : lastState.used
+    }
+  }, {
+    render: [],
+    used: 0
+  });
+
+  return transformed.render
 }
 
 
@@ -38,10 +81,10 @@ export default function Level() {
   const store = useChapter()
   const levelStore = useCompleteLevel()
 
-  const { imageSrc, words, options } = store.current.data
+  const { imageSrc, options } = store.current.data
 
   return (<>
-    <div className="bg-white text-2xl font-light ">
+    <div className="text-2xl font-light ">
       <div className="md:flex md:items-center">
         <div className="grid content-center justify-center ">
         <Image
@@ -53,24 +96,26 @@ export default function Level() {
           />
         </div>
         <div >
-          <p className="text">
+          
 
+          <p className="flex flex-wrap leading-loose text-balance">
           <WordsList />
           </p>
           
+          
         </div>
       </div>
-      <div className="mt-10 flex gap-2 flex-wrap justify-center">
-            {options.map((option) => {
+      <div className="mt-10 flex gap-2 flex-wrap justify-center max-sh-32">
+        {options.map((option) => {
+              if(levelStore.selectedWords.includes(option)) return 
               return (
-                <ButtonLink
-                  callback={() => levelStore.addWord(option)}
+                <WordButton
+                  onclick={() => levelStore.addWord(option)}
+                  disabled= {!levelStore.canAddWord || !levelStore.playing}
                   key={option}
-                  color="gray"
-                  className="select-none hover:bg-inherit"
                 >
                   {option}
-                </ButtonLink>
+                </WordButton>
               );
             })}
           </div>

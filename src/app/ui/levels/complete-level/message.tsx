@@ -37,17 +37,17 @@ interface Pa {
 }
 
 export function LevelMessage({ }: Pa) {
-  const store = useChapter()
+  const chapter = useChapter()
   const levelStore = useCompleteLevel()
   const complete = levelStore.isCorrect
-  const level = store.current
+  const level = chapter.current
   
   const palabras = level.data.words.map(w => {
     if (w.type === "word") return w.word
     if(w.type === "space") return null
   })
 
-
+  let counter = 0
   return <div className={clsx("flex flex-row-reverse justify-between p-6 items-center", {
     "bg-red-300": levelStore.isCorrect === false,
     "bg-emerald-500": levelStore.isCorrect === true
@@ -58,16 +58,24 @@ export function LevelMessage({ }: Pa) {
             active={Boolean(levelStore.selectedWords[0])}
             onclick={() => {
               if (levelStore.isCorrect === null) {
-                const selected = levelStore.selectedWords[0]
-                const correctOption = store.current.data.correctOption[0]
-                const correct = selected === correctOption
-                
+                const selected = levelStore.selectedWords
+                const correctOption = chapter.current.data.correctOption
+                const correct = JSON.stringify(selected) === JSON.stringify(correctOption)
                 levelStore.setIsCorrect(correct)
-                store.updateUI(correct)
-                console.log(correct,selected,correctOption)
+                chapter.updateUI(correct)
+                
+                
+                if (correct) {
+                  chapter.successAudio.play()
+                }
+                else {
+                  chapter.failAudio.play()
+                }
               }
               else {
-                levelStore.isCorrect ? store.complete() : store.fail()
+                if (levelStore.isCorrect) chapter.complete()
+                else  chapter.fail() 
+                levelStore.reset()
               }
             }}
             >
@@ -79,7 +87,12 @@ export function LevelMessage({ }: Pa) {
       :
       complete ? <h4 className="text-white text-xl font-bold">¡Muy Bien!</h4> : <div>
     <h4 className="text-red-600 text-xl font-extrabold">Solución Correcta:</h4>
-    <p className="text-red-600 font-semibold">{palabras.map(p => p ? p : level.data.correctOption[0]).join(" ")}</p>
+        <p className="text-red-600 font-semibold">{palabras.map(
+          p => {
+            if (p) return p
+            counter ++
+            return level.data.correctOption[(counter - 1)]
+          }).join(" ")}</p>
     </div>
     } 
   
