@@ -67,7 +67,7 @@ export async function LoginForm() {
         </div>
       </div>
       <Button className="w-full mt-7" active>
-        Registrase
+        Inicia Sesión
       </Button>
       <Link href={'/register'} className="text-center mt-2 underline text-blue-500">¿No tienes una cuenta? Registrate</Link>
     </form>

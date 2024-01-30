@@ -1,6 +1,12 @@
 import { ILevel } from "./types";
 import { create } from 'zustand'
 
+export interface Chapter{
+  levels: ILevel[],
+  id: string,
+  nextChapterId:string
+}
+
 export interface State{
   levels: ILevel[]
   currentID: string
@@ -14,12 +20,15 @@ export interface State{
   progressUI: number,
   heartUI: number,
   isReady: boolean,
-  successAudio: HTMLAudioElement,
-  failAudio: HTMLAudioElement
+  successLevelAudio: HTMLAudioElement,
+  failLevelAudio: HTMLAudioElement,
+  successChapterAudio: HTMLAudioElement,
+  failChapterAudio: HTMLAudioElement,
+  completeObject: Chapter
 }
 
 export interface Actions {
-  init: (levels: ILevel[]) => void
+  init: (chapter: Chapter) => void
   complete: () => void
   fail: () => void
   updateUI: (guess:boolean)=> void
@@ -27,6 +36,7 @@ export interface Actions {
 
 export const useStore = create<State & Actions>((set) =>
 ({
+  completeObject: {} as Chapter,
   // Init Level
   isReady:false,
   // Level state
@@ -43,14 +53,18 @@ export const useStore = create<State & Actions>((set) =>
   heartUI: 3,
   progressUI: 0,
   // Const
-  successAudio: new Audio('/success.mp3'),
-  failAudio: new Audio('/fail.mp3'),
-  
-  init: (levels: ILevel[]) => set(() => {
+  successLevelAudio: new Audio('/success.mp3'),
+  failLevelAudio: new Audio('/fail.mp3'),
+  successChapterAudio: new Audio('/victory.mp3'),
+  failChapterAudio:new Audio('/derrota.mp3'),
+  init: (chapter) => set((state) => {
+    const levels = chapter.levels
     const currentID = levels[0].id
     const current = levels.find(l => l.id === currentID) as ILevel
-    
+    state.successLevelAudio.load()
+    state.failLevelAudio.load()
     return {
+      completeObject: chapter,
       isReady: true,
       levels, 
       amount: levels.length,

@@ -2,6 +2,7 @@ import type { NextAuthConfig } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 export const authConfig = {
+  trustHost: true,
   pages: {
     signIn: '/login',
     newUser: '/register'

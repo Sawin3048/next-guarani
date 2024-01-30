@@ -7,7 +7,7 @@ export const viewport: Viewport = {
   userScalable:false
 }
 export const metadata: Metadata = {
-  title: 'Guarní',
+  title: 'Guraní',
   description: 'La mejor página para aprender un poco de guarani en un formato moderno',
   
 }

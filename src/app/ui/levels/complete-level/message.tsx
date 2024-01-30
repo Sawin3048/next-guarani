@@ -66,10 +66,10 @@ export function LevelMessage({ }: Pa) {
                 
                 
                 if (correct) {
-                  chapter.successAudio.play()
+                  chapter.successLevelAudio.play()
                 }
                 else {
-                  chapter.failAudio.play()
+                  chapter.failLevelAudio.play()
                 }
               }
               else {
