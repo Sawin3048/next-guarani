@@ -31,7 +31,7 @@ export interface Actions {
   init: (chapter: Chapter) => void
   complete: () => void
   fail: () => void
-  updateUI: (guess:boolean)=> void
+  updateUI: (guess: boolean) => void
 }
 
 export const useStore = create<State & Actions>((set) =>
@@ -130,6 +130,7 @@ export const useStore = create<State & Actions>((set) =>
     if (guess) return { progressUI: state.progressUI + 1 }
     return {heartUI: state.heartUI - 1}
   })),
+
 
 }))
 

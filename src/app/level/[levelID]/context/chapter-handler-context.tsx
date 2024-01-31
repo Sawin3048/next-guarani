@@ -1,5 +1,5 @@
 "use client"
-import { Actions, useStore,State } from "@/app/ui/levels/chapter-controller";
+import { Actions, useStore,State, Chapter } from "@/app/ui/levels/chapter-controller";
 import { createContext, useContext, useEffect } from "react";
 
 const placeholder = {} as State & Actions
@@ -14,11 +14,12 @@ export function useChapter() {
 interface P {
   children: React.ReactNode
   chapterID?: string
+  chapter: Chapter
 }
-export default function ChapterProvider({children, chapterID}:P ) {
+export default function ChapterProvider({children, chapterID,chapter }:P ) {
   const store = useStore()
   useEffect(() => {
-    fetch('/api/level').then(r=>r.json()).then(r=>store.init(r))
+    store.init(chapter)
   }, [])
   return (
     <ChapterContext.Provider value={store}>{

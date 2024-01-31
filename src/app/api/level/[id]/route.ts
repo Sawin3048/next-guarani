@@ -1,6 +1,8 @@
 import { auth } from "@/auth"
+import { error } from "console"
+import { NextRequest, NextResponse } from "next/server"
 
-const levels = {
+const chapters = [{
   id: 'jksdlflkjdfsjklfds',
   nextChapterId: 'asewoijkldoj',
   levels: [
@@ -62,10 +64,17 @@ const levels = {
       "id": "erer",
     }
   ]
-}
+}]
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   const a = await auth()
   console.log('peticion a GET', a)
-  return Response.json(levels)
+  console.log(req.url)
+  const id = req.url.split("/").pop()
+
+
+  const chapter = chapters.find(chapter => chapter.id === id)
+  console.log({ id, chapter })
+  if (!!chapter) return Response.json(chapter)
+  else throw new Error('Ese nivel no existe')
 }

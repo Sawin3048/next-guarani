@@ -5,7 +5,7 @@ export default function Level() {
     <main>
       <ul className="text-white flex md:gap-3 gap-1 flex-col">
         <li>
-          <LevelSelector btnUrl="level/1" color="pink" dificulty="fácil" imgSrc="/niño-buscando.png" title="Etapa 1: Terarãngue" subTitle="Pronombres Personales"/>
+          <LevelSelector btnUrl="level/jksdlflkjdfsjklfds" color="pink" dificulty="fácil" imgSrc="/niño-buscando.png" title="Etapa 1: Terarãngue" subTitle="Pronombres Personales"/>
         </li>    
         <li>
           <LevelSelector btnUrl="level/2" color="purple" dificulty="fácil" imgSrc="/niña-comiendo.png" title="Etapa 2: Ñe’ẽtéva" subTitle="Verbos"/>
