@@ -85,7 +85,7 @@ export default function Level() {
 
   return (<>
     <div className="text-2xl font-light ">
-      <div className="md:flex md:items-center">
+      <div className="md:flex md:items-center md:gap-4">
         <div className="grid content-center justify-center ">
         <Image
           src={imageSrc}

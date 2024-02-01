@@ -3,13 +3,15 @@ import { ButtonLink } from "@/app/ui/buttond"
 import Link from "next/link"
 import { useChapter } from "../context/chapter-handler-context"
 import JSConfetti from "js-confetti"
-import { useEffect } from "react"
 
 function SuccessSreen() {
   const chapter = useChapter()
   const jsConfetti = new JSConfetti()
-  if (chapter.finish) { jsConfetti.addConfetti() }
-  chapter.successChapterAudio.play()
+  if (chapter.finish && !chapter.finishAnimation) {
+    jsConfetti.addConfetti()
+    chapter.successChapterAudio.play()
+    chapter.finishAnimation = true
+  }
   
   return <>
     <main className="flex justify-around items-center  flex-col m-auto bg-white max-w-3xl h-dvh">
@@ -25,7 +27,10 @@ function SuccessSreen() {
         <Link href={'/level'}>
         <ButtonLink    color="pink" className="bg-pink-600 w-fit text-white ">Volver al Inicio</ButtonLink>
         </Link>
-      <ButtonLink color="emerald" className="bg-emerald-600 w-fit text-white ">Siguiente Nivel</ButtonLink>
+        <Link href={`/level/${chapter.completeObject.nextChapterId}`}>
+          <ButtonLink color="emerald" className="bg-emerald-600 w-fit text-white ">Siguiente Nivel</ButtonLink>
+        </Link>
+        
       </div>
     
     </main>

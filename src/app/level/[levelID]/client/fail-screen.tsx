@@ -5,7 +5,10 @@ import { useChapter } from "../context/chapter-handler-context"
 
 function FailScreen() {
   const chapter = useChapter()
-  chapter.failChapterAudio.play()
+  if (!chapter.finishAnimation) {
+    chapter.failChapterAudio.play()
+    chapter.finishAnimation = true
+  }
 
   return <>
   <audio src="/derrota.mp3" autoPlay hidden></audio>

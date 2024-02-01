@@ -25,6 +25,7 @@ export interface State{
   successChapterAudio: HTMLAudioElement,
   failChapterAudio: HTMLAudioElement,
   completeObject: Chapter
+  finishAnimation: boolean
 }
 
 export interface Actions {
@@ -52,6 +53,7 @@ export const useStore = create<State & Actions>((set) =>
   // UI state
   heartUI: 3,
   progressUI: 0,
+  finishAnimation: false,
   // Const
   successLevelAudio: new Audio('/success.mp3'),
   failLevelAudio: new Audio('/fail.mp3'),
@@ -77,7 +79,8 @@ export const useStore = create<State & Actions>((set) =>
       current,
       heart: 3,
       progressUI: 0,
-      heartUI:3
+      heartUI: 3,
+      finishAnimation:false
     }
   }),
 
