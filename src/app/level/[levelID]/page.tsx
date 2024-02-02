@@ -9,6 +9,7 @@ export default async function Page({ params }: any) {
   console.log(req.ok)
   if (req.ok) {
     const chapter = await req.json()
+
   return <ChapterProvider chapter={chapter}>
     <Client/>
   </ChapterProvider>

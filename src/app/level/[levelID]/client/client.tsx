@@ -17,13 +17,19 @@ function Client() {
   if (chapter.isReady) return (
     <div className="flex flex-col max-w-3xl justify-between m-auto h-svh bg-white">
       <LevelNav />
-      <CompleteLevelProvider >
+      {
+        chapter.current.type === "complete" && (
+        <CompleteLevelProvider >
         <Level />
         <div>
           <hr className="border-2"/>
           <LevelMessage />
         </div>
-      </CompleteLevelProvider>
+          </CompleteLevelProvider>)
+      }
+      {chapter.current.type === "audio-and-questions" && 
+      <></>
+      }
     </div>)
 }
 

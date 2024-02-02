@@ -1,5 +1,5 @@
 "use client"
-import { Actions, useStore,State, Chapter } from "@/app/ui/levels/chapter-controller";
+import { Actions, useStore,State, Chapter } from "@/app/ui/levels/chapter-store";
 import { createContext, useContext, useEffect } from "react";
 
 const placeholder = {} as State & Actions

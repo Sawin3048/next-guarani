@@ -1,7 +1,6 @@
-import { Chapter } from "@/app/ui/levels/chapter-controller"
+import { Chapter } from "@/app/ui/levels/chapter-store"
 import { auth } from "@/auth"
-import { error } from "console"
-import { NextRequest, NextResponse } from "next/server"
+import { NextRequest } from "next/server"
 
 const chapters: Chapter[] = [
   {
@@ -127,7 +126,17 @@ const chapters: Chapter[] = [
   {
     id: 'Osr4xJtV1X9H41Db6vYOR',
     nextChapterId: 'fx1GsK8Jmk4rC6dgw53BM',
-    levels: []
+    levels: [{
+      id: 'mmSkVnUuPcPKKacOGZyF3',
+      type: 'audio-and-questions',
+      data: {
+        imageSrc: '/niña-comiendo.png',
+        question: "¿Mba'e ojapo?",
+        options: ['Puka', 'Guata', 'Purahei', 'Jahu'],
+        keywords: [{ type: 'required', word: 'puka' }, { type: 'optional', word: "hae" }],
+        expected: "Ha'e opuka"
+      }
+    }]
   },
   {
     id: 'fx1GsK8Jmk4rC6dgw53BM',
