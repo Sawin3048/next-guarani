@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
 import { useCompleteLevel } from '@/app/ui/levels/complete-level/context'
 import clsx from "clsx";
 
-type color = "emerald" | "pink" | "teal" | "purple" | "gray";
 interface Par {
   children: React.ReactNode;
   className?: string;
@@ -33,10 +31,9 @@ export function WordButton({ children, className, onclick, disabled }: Par){
 }
 
 function WordsList() {
-  const chapter = useChapter()
   const level = useCompleteLevel()
-  const selected = level.selectedWords
-  const words = chapter.current.data.words
+  const selected = level.selectedWords 
+  const words = level.level.data.words
 
   const transformed = words.reduce<{render: React.ReactNode[],used:number}>((lastState,word) => {
     let used = false
@@ -78,10 +75,10 @@ function WordsList() {
 
 // Level
 export default function Level() {
-  const store = useChapter()
+  
   const levelStore = useCompleteLevel()
 
-  const { imageSrc, options } = store.current.data
+  const { imageSrc, options } = levelStore.level.data
 
   return (<>
     <div className="text-2xl font-light ">

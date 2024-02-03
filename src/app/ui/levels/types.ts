@@ -19,7 +19,7 @@ export type Words = {
   word: string
 }
 
-type CompleteLevel = {
+export type CompleteLevel = BaseLevel & {
   type: typeof levelTypes.complete;
   data: {
     imageSrc: string;
@@ -40,7 +40,7 @@ type keywords = {
 }
 
 
-type QuestionAndAudioLevel = {
+export type QuestionAndAudioLevel = BaseLevel & {
   type: typeof levelTypes.questionsAndAudio
   data: {
     question: string
@@ -51,4 +51,6 @@ type QuestionAndAudioLevel = {
   }
 }
 
-export type ILevel = BaseLevel & (CompleteLevel | QuestionAndAudioLevel)
+export type ILevel =
+  | CompleteLevel
+  | QuestionAndAudioLevel

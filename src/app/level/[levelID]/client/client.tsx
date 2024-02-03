@@ -1,11 +1,29 @@
 "use client"
-import { CompleteLevelProvider } from "@/app/ui/levels/complete-level/context"
+import { CompleteLevelProvider, useCompleteLevel } from "@/app/ui/levels/complete-level/context"
 import { useChapter } from "../context/chapter-handler-context"
 import LevelNav from "./nav"
 import Level from "@/app/ui/levels/complete-level/level"
 import { LevelMessage } from "@/app/ui/levels/complete-level/message"
 import FailScreen from "./fail-screen"
 import SuccessSreen from "./success-screen"
+import AudioLevel from "@/app/ui/levels/audio-level/level"
+
+
+
+function LevelReady() {
+  const store = useCompleteLevel()
+  if (store.isReady) {
+    return (<>
+      <Level />
+      <div>
+        <hr className="border-2" />
+        <LevelMessage />
+      </div>
+    </>
+    )
+  }
+}
+
 
 function Client() {  
   const chapter = useChapter()
@@ -20,16 +38,10 @@ function Client() {
       {
         chapter.current.type === "complete" && (
         <CompleteLevelProvider >
-        <Level />
-        <div>
-          <hr className="border-2"/>
-          <LevelMessage />
-        </div>
-          </CompleteLevelProvider>)
+          <LevelReady/>
+        </CompleteLevelProvider>)
       }
-      {chapter.current.type === "audio-and-questions" && 
-      <></>
-      }
+      {chapter.current.type === "audio-and-questions" && <AudioLevel />}
     </div>)
 }
 

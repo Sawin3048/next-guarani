@@ -40,7 +40,7 @@ export function LevelMessage({ }: Pa) {
   const chapter = useChapter()
   const levelStore = useCompleteLevel()
   const complete = levelStore.isCorrect
-  const level = chapter.current
+  const level = levelStore.level
   
   const palabras = level.data.words.map(w => {
     if (w.type === "word") return w.word
@@ -59,7 +59,7 @@ export function LevelMessage({ }: Pa) {
             onclick={() => {
               if (levelStore.isCorrect === null) {
                 const selected = levelStore.selectedWords
-                const correctOption = chapter.current.data.correctOption
+                const correctOption = levelStore.level.data.correctOption
                 const correct = JSON.stringify(selected) === JSON.stringify(correctOption)
                 levelStore.setIsCorrect(correct)
                 chapter.updateUI(correct)

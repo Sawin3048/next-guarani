@@ -15,10 +15,13 @@ export function CompleteLevelProvider({ children }: { children: ReactNode }) {
   const chapter = useChapter()
   
   useEffect(() => {
-    const spaceAmount = chapter.current.data.words.filter(w => w.type === 'space').length
-    
-    store.setLevel(chapter.current)
-    store.setSpacesAmount(spaceAmount)
+    if (chapter.current.type === 'complete') {
+
+      const spaceAmount = chapter.current.data.words.filter(w => w.type === 'space').length 
+      
+      store.setLevel(chapter.current)
+      store.setSpacesAmount(spaceAmount)
+    }
   }, [chapter.current.id])
   
   return (<CompleteLevelContext.Provider value={store}>

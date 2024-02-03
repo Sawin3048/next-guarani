@@ -1,13 +1,13 @@
 import { ILevel } from "./types";
 import { create } from 'zustand'
 
-export interface Chapter{
+export interface Chapter {
   levels: ILevel[],
   id: string,
-  nextChapterId:string
+  nextChapterId: string
 }
 
-export interface State{
+export interface State {
   levels: ILevel[]
   currentID: string
   completed: string[]
@@ -39,7 +39,7 @@ export const useStore = create<State & Actions>((set) =>
 ({
   completeObject: {} as Chapter,
   // Init Level
-  isReady:false,
+  isReady: false,
   // Level state
   levels: [],
   amount: 0,
@@ -58,7 +58,7 @@ export const useStore = create<State & Actions>((set) =>
   successLevelAudio: new Audio('/success.mp3'),
   failLevelAudio: new Audio('/fail.mp3'),
   successChapterAudio: new Audio('/victory.mp3'),
-  failChapterAudio:new Audio('/derrota.mp3'),
+  failChapterAudio: new Audio('/derrota.mp3'),
   init: (chapter) => set((state) => {
     const levels = chapter.levels
     const currentID = levels[0].id
@@ -68,7 +68,7 @@ export const useStore = create<State & Actions>((set) =>
     return {
       completeObject: chapter,
       isReady: true,
-      levels, 
+      levels,
       amount: levels.length,
       toPlay: levels.map(l => l.id),
       currentID,
@@ -80,7 +80,7 @@ export const useStore = create<State & Actions>((set) =>
       heart: 3,
       progressUI: 0,
       heartUI: 3,
-      finishAnimation:false
+      finishAnimation: false
     }
   }),
 
@@ -93,7 +93,7 @@ export const useStore = create<State & Actions>((set) =>
       finish = false
       toPlay.push(...state.failed)
       failed = []
-      
+
     }
     const currentID = toPlay[0] || ''
     const current = state.levels.find(l => l.id === currentID) as ILevel
@@ -112,6 +112,7 @@ export const useStore = create<State & Actions>((set) =>
     let toPlay = [...state.toPlay.filter(id => !(id === state.currentID))]
     let failed = [...state.failed, state.currentID]
     let heart = state.heart - 1
+
     if (finish && failed.length > 0) {
       finish = false
       toPlay.push(...failed)
@@ -128,10 +129,10 @@ export const useStore = create<State & Actions>((set) =>
       current
     }
   })),
-  
-  updateUI: (guess: boolean) => (set((state)=>{
+
+  updateUI: (guess: boolean) => (set((state) => {
     if (guess) return { progressUI: state.progressUI + 1 }
-    return {heartUI: state.heartUI - 1}
+    return { heartUI: state.heartUI - 1 }
   })),
 
 
