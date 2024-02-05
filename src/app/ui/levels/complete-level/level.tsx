@@ -95,7 +95,7 @@ export default function Level() {
         <div >
           
 
-          <p className="flex flex-wrap leading-loose text-balance">
+          <p className="flex flex-wrap leading-loose text-balance w-full text-center">
           <WordsList />
           </p>
           
