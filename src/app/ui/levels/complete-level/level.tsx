@@ -15,11 +15,12 @@ export default function Level() {
 
   return (<>
     <div className="text-2xl font-light ">
+      <h3 className="text-center"></h3>
       <div className="md:flex md:items-center md:gap-4">
         <div className="grid content-center justify-center ">
         <Image
           src={imageSrc}
-          width={300}
+            width={300}
           height={300}
           alt=""
           className="select-none"

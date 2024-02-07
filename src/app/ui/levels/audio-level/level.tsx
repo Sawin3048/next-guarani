@@ -1,8 +1,6 @@
 import Image from "next/image";
-import { ButtonLink } from "../../buttond";
-import MicIcon from "../../svg/mic";
 import { useState } from "react";
-import clsx from "clsx";
+import MicrofoneButton from "../microfoneButton";
 
 function AudioLevel() {
   const [record, setRecord] = useState(false)
@@ -27,14 +25,7 @@ function AudioLevel() {
         </div>
       </div>
       <div className="mt-10 flex gap-2 flex-wrap justify-center max-sh-32 w-full">
-        <ButtonLink className={clsx("hover:bg-inherit", {
-          "border-red-500": record
-        })} callback={()=> setRecord(s=>!s)}>
-          <MicIcon className={clsx("w-16 h-16", {
-            "text-gray-500": !record,
-            "text-red-500": record
-          })} />
-        </ButtonLink>
+        <MicrofoneButton record={record} callback={()=> setRecord(s=>!s)}/>
       </div>
     </div>
   )
