@@ -9,6 +9,7 @@ export interface State {
   canAddWord: boolean,
   amountSpaces: number
   isReady: boolean
+  audios: { [name: string]: HTMLAudioElement }
 }
 
 export interface Actions {
@@ -18,6 +19,7 @@ export interface Actions {
   reset: () => void
   setLevel: (level: CompleteLevel) => void
   setSpacesAmount: (amount: number) => void
+  loadAudios: (audios: string[]) => void
 }
 // Store
 export const useCompleteLevelStore = create<State & Actions>((set) =>
@@ -29,6 +31,7 @@ export const useCompleteLevelStore = create<State & Actions>((set) =>
   canAddWord: true,
   amountSpaces: 0,
   isReady: false,
+  audios: {},
   setIsCorrect: (correct) => set(state => {
     return {
       isCorrect: correct,
@@ -43,7 +46,6 @@ export const useCompleteLevelStore = create<State & Actions>((set) =>
     const canAddWord = !(state.amountSpaces - selectedWords.length === 0)
     const canAddWordNow = !(amountSpaces <= 0)
 
-    console.log({ selectedWords: state.selectedWords.length, amountSpaces: state.amountSpaces, canAddWord, canAddWordNow, amountSpaces2: amountSpaces })
 
     if (!canAddWordNow) return {}
     return {
@@ -68,7 +70,22 @@ export const useCompleteLevelStore = create<State & Actions>((set) =>
       canAddWord: true
     }
   }),
+
+  loadAudios: (audios) => set(state => {
+    let audiosElement: any = {}
+    audios.forEach(audio => {
+      audiosElement[audio] = new Audio(`/public/audio/${audio}.mp3`)
+    })
+
+    return {
+      audios: audiosElement
+    }
+  }),
+
   setLevel: level => set(state => {
+    const audios = level.data.options.map(o => o.toLowerCase());
+    state.loadAudios(audios)
+
     return {
       level: level,
       isReady: true

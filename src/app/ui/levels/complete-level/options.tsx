@@ -7,6 +7,7 @@ function Options() {
 
   const onclickButton = (option:string) => {
     levelStore.addWord(option)
+    levelStore.audios[option.toLowerCase()]?.play()
   }
 
   const { options } = levelStore.level.data
