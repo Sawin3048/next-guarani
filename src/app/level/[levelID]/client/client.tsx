@@ -30,18 +30,23 @@ function Client() {
   
   
   if (chapter.finish) return <SuccessSreen/>
-  if(chapter.heart === 0) return <FailScreen />
+  if(chapter.heart <= 0) return <FailScreen />
   
   if (chapter.isReady) return (
     <div className="flex flex-col max-w-3xl justify-between m-auto h-svh bg-white">
       <LevelNav />
       {
-        chapter.current.type === "complete" && (
+        // Complete level
+        chapter.current.type === "complete" &&
+        (
         <CompleteLevelProvider >
           <LevelReady/>
         </CompleteLevelProvider>)
       }
-      {chapter.current.type === "audio-and-questions" && <AudioLevel />}
+      {
+        // Audio and Questions
+        chapter.current.type === "audio-and-questions" && <AudioLevel />
+      }
     </div>)
 }
 
