@@ -1,6 +1,7 @@
 import { Chapter } from "@/app/ui/levels/chapter-store"
 import { auth } from "@/auth"
 import { NextRequest } from "next/server"
+import { leve4 } from "./level4"
 
 const chapters: Chapter[] = [
   {
@@ -145,9 +146,9 @@ const chapters: Chapter[] = [
   },
   {
     id: 'JutTOC_DYbvJoFrt3Cr62',
-    nextChapterId: 'no hay',
+    nextChapterId: 'chapter4',
     levels: []
-  }
+  }, leve4
 ]
 
 export async function GET(req: NextRequest) {

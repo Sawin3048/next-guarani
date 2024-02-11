@@ -19,7 +19,7 @@ export class RecordAudio {
   }
 
   async start() {
-    await navigator.mediaDevices.getUserMedia(this.params).then(
+    await navigator.mediaDevices.getUserMedia({ audio: true }).then(
       (stream) => {
         this.stream = stream
         this.mediaRecorder = new MediaRecorder(stream)
@@ -47,7 +47,7 @@ export class RecordAudio {
       this.mediaRecorder.addEventListener("stop", () => {
         this.stream?.getTracks().forEach(track => track.stop())
 
-        this.audio = new Blob(this.audioFragments)
+        this.audio = new Blob(this.audioFragments, { type: 'audio/mpeg' })
 
         resolve(this.audio)
         this.audio = null

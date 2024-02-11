@@ -7,6 +7,8 @@ import { LevelMessage } from "@/app/ui/levels/complete-level/message"
 import FailScreen from "./fail-screen"
 import SuccessSreen from "./success-screen"
 import AudioLevel from "@/app/ui/levels/audio-level/level"
+import { CompleteLevel } from "@/app/ui/levels/complete-level/level-ready"
+import { CompleteWithAudio } from "@/app/ui/levels/complete-with-audio/level-ready"
 
 
 
@@ -37,15 +39,13 @@ function Client() {
       <LevelNav />
       {
         // Complete level
-        chapter.current.type === "complete" &&
-        (
-        <CompleteLevelProvider >
-          <LevelReady/>
-        </CompleteLevelProvider>)
+        chapter.current.type === "complete" && <CompleteLevel/>
       }
       {
         // Audio and Questions
         chapter.current.type === "audio-and-questions" && <AudioLevel />
+      }
+      {chapter.current.type === "complete-with-audio" && <CompleteWithAudio/>
       }
     </div>)
 }

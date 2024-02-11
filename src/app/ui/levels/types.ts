@@ -2,6 +2,7 @@ const levelTypes = {
   complete: "complete",
   selectPair: "selectPair",
   questionsAndAudio: "audio-and-questions",
+  completeWithAudio: "complete-with-audio"
 } as const
 
 
@@ -21,6 +22,16 @@ export type Words = {
 
 export type CompleteLevel = BaseLevel & {
   type: typeof levelTypes.complete;
+  data: {
+    imageSrc: string;
+    words: Words[];
+    options: string[];
+    correctOption: string[];
+  };
+}
+
+export type CompleteWithAudio = BaseLevel & {
+  type: typeof levelTypes.completeWithAudio;
   data: {
     imageSrc: string;
     words: Words[];
@@ -54,3 +65,4 @@ export type QuestionAndAudioLevel = BaseLevel & {
 export type ILevel =
   | CompleteLevel
   | QuestionAndAudioLevel
+  | CompleteWithAudio
