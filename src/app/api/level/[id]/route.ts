@@ -1,7 +1,8 @@
 import { Chapter } from "@/app/ui/levels/chapter-store"
 import { auth } from "@/auth"
 import { NextRequest } from "next/server"
-import { leve4 } from "./level4"
+import { conjugar } from "./level4"
+import { preguntas } from "./preguntas"
 
 const chapters: Chapter[] = [
   {
@@ -124,21 +125,7 @@ const chapters: Chapter[] = [
       },
     ]
   },
-  {
-    id: 'Osr4xJtV1X9H41Db6vYOR',
-    nextChapterId: 'fx1GsK8Jmk4rC6dgw53BM',
-    levels: [{
-      id: 'mmSkVnUuPcPKKacOGZyF3',
-      type: 'audio-and-questions',
-      data: {
-        imageSrc: '/niña-comiendo.png',
-        question: "¿Mba'e ojapo?",
-        options: ['Puka', 'Guata', 'Purahei', 'Jahu'],
-        keywords: [{ type: 'required', word: 'puka' }, { type: 'optional', word: "hae" }],
-        expected: "Ha'e opuka"
-      }
-    }]
-  },
+  preguntas,
   {
     id: 'fx1GsK8Jmk4rC6dgw53BM',
     nextChapterId: 'JutTOC_DYbvJoFrt3Cr62',
@@ -148,7 +135,7 @@ const chapters: Chapter[] = [
     id: 'JutTOC_DYbvJoFrt3Cr62',
     nextChapterId: 'chapter4',
     levels: []
-  }, leve4
+  }, conjugar
 ]
 
 export async function GET(req: NextRequest) {

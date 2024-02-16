@@ -4,15 +4,15 @@ import Image from "next/image";
 import { WordsList } from "./wordList";
 import Options from "./options";
 import { useCompleteWithAudio } from "./context";
-import MicrofoneButton from "../microfoneButton";
 import SelectOption from "./selectOption";
+import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
 
 
 // Level
 export default function Level() {
   
   const levelStore = useCompleteWithAudio()
-
+  const chapter = useChapter()
   const { imageSrc } = levelStore.level.data
 
   return (<>
@@ -28,6 +28,8 @@ export default function Level() {
           className="select-none"
           />
         </div>
+
+        <button onClick={()=>chapter.complete()}>Click</button>
         <div >
           <p className="flex flex-wrap leading-loose text-balance w-full text-center">
           <WordsList />

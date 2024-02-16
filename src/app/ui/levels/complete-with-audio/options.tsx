@@ -5,8 +5,9 @@ import { WordButton } from './wordButton'
 function Options() {
   const levelStore = useCompleteWithAudio()
 
-  const onclickButton = (option:string) => {
-    levelStore.audios[option.toLowerCase()]?.play()
+  const onclickButton = (option: string) => {
+    const a = levelStore.audios[option.toLowerCase()]
+    a.play().catch(e=>{}) 
   }
 
   const { options } = levelStore.level.data

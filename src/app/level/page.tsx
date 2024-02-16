@@ -3,7 +3,7 @@ import LevelSelector from "@/app/ui/levels/level-card";
 export default function Level() {
   return (
     <main>
-      <ul className="text-white flex md:gap-3 gap-1 flex-col">
+      <ul className="text-white flex md:gap-3 gap-1 flex-col md:mt-4">
         <li>
           <LevelSelector btnUrl="level/NymsQz0MvUCY2XqDQEnRJ" color="pink" dificulty="fácil" imgSrc="/niño-buscando.png" title="Etapa 1: Terarãngue" subTitle="Pronombres Personales"/>
         </li>    

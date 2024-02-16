@@ -1,6 +1,6 @@
 import { Chapter } from "@/app/ui/levels/chapter-store";
 
-export const leve4: Chapter = {
+export const conjugar: Chapter = {
   "id": "chapter4",
   "nextChapterId": "chapter5",
   "levels": [
@@ -64,7 +64,7 @@ export const leve4: Chapter = {
             "type": "word", "word": "jakaru."
           }
         ],
-        "options": ["Ha'eKuéra", "Ore", "Nde", "Ñande",],
+        "options": ["Ha'eKuéra", "Ore", "Ha'e", "Ñande",],
         "correctOption": ["Ñande"],
       },
       "id": "Ry7MjnnayeT87m-TKgzgK",
