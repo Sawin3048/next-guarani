@@ -7,10 +7,11 @@ interface Params {
   className?: string;
   color?: color;
   callback?: () => void;
+  disable?: boolean
 }
 // Clases
 //  mt-5
-export function ButtonLink({ children, className, color, callback }: Params) {
+export function ButtonLink({ children, className, color, callback, disable }: Params) {
   color = color || "gray";
   return (
     <button
@@ -30,6 +31,7 @@ export function ButtonLink({ children, className, color, callback }: Params) {
         }
       )}
       onClick={callback}
+      disabled={disable}
     >
       {children}
     </button>

@@ -22,6 +22,7 @@ function useRecordAudio() {
   async function handleAudio(audio: Blob) {
     clearTimeout(id)
     const text = await sendAudio(audio) as string
+    console.log({text})
     levelStore.toggleTranscripting()
     const { options } = levelStore.level.data
     const normalizeOptions = options.map(o => normalizeWord(o))

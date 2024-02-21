@@ -1,34 +1,49 @@
+"use client";
+
 import Image from "next/image";
-import { useState } from "react";
-import MicrofoneButton from "../microfoneButton";
+import Options from "./options";
+import { useCompleteWithAudio } from "./context";
+import SelectOption from "./selectOption";
+import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
 
-function AudioLevel() {
-  const [record, setRecord] = useState(false)
 
-  return (
-    <div className="text-2xl font-light h-full flex flex-col justify-around ">
-      <div>
-        <h3 className="text-2xl font-semibold text-neutral-900 underline text-center">Responde hablando lento y claro.</h3>
-      </div>
-      <div className="md:flex md:items-center md:gap-4">
-        <div className="grid content-center md:justify-normal justify-center">
+
+// Level
+export default function Level() {
+  
+  const levelStore = useCompleteWithAudio()
+  const chapter = useChapter()
+  const { imageSrc } = levelStore.level.data
+
+  return (<>
+    <div className="text-2xl font-light ">
+      <h3 className="text-center"></h3> 
+      <div className="md:flex md:justify-center md:gap-4">
+        <div className="grid content-center justify-center ">
         <Image
-          src={'/niña-comiendo.png'}
-          width={300}
+          src={imageSrc}
+            width={300}
           height={300}
           alt=""
           className="select-none"
           />
         </div>
-        <div>
-          <p className="text-center font-bold text-neutral-700">{"Mba'e ojapo?"}</p>         
+
+        {/* <button onClick={()=>chapter.complete()}>Click</button> */}
+        <div className="flex justify-center md:items-center "  >
+          <p className="flex flex-wrap w-fit leading-loose text-balance h-fit">
+          {levelStore.level.data.question}
+          </p>
         </div>
       </div>
-      <div className="mt-10 flex gap-2 flex-wrap justify-center max-sh-32 w-full">
-        <MicrofoneButton record={record} callback={()=> setRecord(s=>!s)}/>
+      <div className="mt-10 flex gap-2 flex-wrap justify-center max-sh-32">
+        <Options/>
       </div>
     </div>
-  )
+    <div>
+      <SelectOption/>
+    </div>
+    </>
+  );
 }
 
-export default AudioLevel 

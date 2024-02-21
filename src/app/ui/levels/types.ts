@@ -33,10 +33,12 @@ export type CompleteLevel = BaseLevel & {
 export type CompleteWithAudio = BaseLevel & {
   type: typeof levelTypes.completeWithAudio;
   data: {
-    imageSrc: string;
-    words: Words[];
-    options: string[];
-    correctOption: string[];
+    imageSrc: string
+    words: Words[]
+    question?: string
+    options: string[]
+    correctOption: string[]
+    transcript?: { compare: string, result: string }
   };
 }
 // ---------------------- \\
@@ -57,7 +59,7 @@ export type QuestionAndAudioLevel = BaseLevel & {
     question: string
     options: string[]
     imageSrc: string
-    keywords: keywords[],
+    correctOption: string[]
     expected: string
   }
 }

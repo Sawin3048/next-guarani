@@ -3,41 +3,70 @@ import { QuestionAndAudioLevel } from "../types"
 
 export interface State {
   playing: boolean,
-  level: QuestionAndAudioLevel
-  isReady: boolean
+  selectedWords: string[]
   isCorrect: boolean | null
-
+  level: QuestionAndAudioLevel
+  canAddWord: boolean,
+  amountSpaces: number
+  isReady: boolean
+  audios: { [name: string]: HTMLAudioElement }
+  recording: boolean
+  transcripting: boolean
 }
 
 export interface Actions {
   setIsCorrect: (correct: boolean) => void
-  setLevel: (level: QuestionAndAudioLevel) => void
-
+  addWord: (word: string) => void
+  removeWord: (word: string) => void
   reset: () => void
-
+  setLevel: (level: QuestionAndAudioLevel) => void
+  setSpacesAmount: (amount: number) => void
+  loadAudios: (audios: string[]) => void
+  setRecording: (state: boolean) => void
+  toggleTranscripting: () => void
 }
-
 // Store
-export const useQuestionAndAudioStore = create<State & Actions>((set) =>
+export const useAudioLevelStore = create<State & Actions>((set) =>
 ({
-  isReady: false,
-  isCorrect: null,
   playing: true,
+  selectedWords: [],
+  isCorrect: null,
   level: {} as QuestionAndAudioLevel,
-
+  canAddWord: true,
+  amountSpaces: 0,
+  isReady: false,
+  recording: false,
+  audios: {},
+  transcripting: false,
   setIsCorrect: (correct) => set(state => {
     return {
       isCorrect: correct,
       playing: false
     }
   }),
-  setLevel: level => set(state => {
+  addWord: (word) => set(state => {
+    if (!state.canAddWord) return {}
+
+    const selectedWords = [...state.selectedWords, word]
+    const amountSpaces = state.amountSpaces - state.selectedWords.length
+    const canAddWord = !(state.amountSpaces - selectedWords.length === 0)
+    const canAddWordNow = !(amountSpaces <= 0)
+
+
+    if (!canAddWordNow) return {}
     return {
-      level: level,
-      isReady: true
+      selectedWords,
+      canAddWord
     }
   }),
 
+  removeWord: (word) => set(state => {
+
+    return {
+      selectedWords: state.selectedWords.filter(w => w !== word),
+      canAddWord: true
+    }
+  }),
   reset: () => set(() => {
 
     return {
@@ -48,4 +77,31 @@ export const useQuestionAndAudioStore = create<State & Actions>((set) =>
     }
   }),
 
+  loadAudios: (audios) => set(state => {
+    let audiosElement: any = {}
+    audios.forEach(audio => {
+      audiosElement[audio] = new Audio(`/public/audio/${audio}.mp3`)
+    })
+
+    return {
+      audios: audiosElement
+    }
+  }),
+
+  setLevel: level => set(state => {
+    const audios = level.data.options.map(o => o.toLowerCase());
+    state.loadAudios(audios)
+
+    return {
+      level: level,
+      isReady: true
+    }
+  }),
+  setSpacesAmount: amount => set(state => ({ amountSpaces: amount })),
+
+  setRecording: (recording) => set(state => ({ recording })),
+
+  toggleTranscripting: () => set(state => ({
+    transcripting: !state.transcripting
+  }))
 }))

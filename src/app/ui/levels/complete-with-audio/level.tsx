@@ -12,26 +12,26 @@ import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-contex
 export default function Level() {
   
   const levelStore = useCompleteWithAudio()
-  const chapter = useChapter()
   const { imageSrc } = levelStore.level.data
 
   return (<>
     <div className="text-2xl font-light ">
       <h3 className="text-center"></h3>
-      <div className="md:flex md:items-center md:gap-4">
+      <div className="md:flex md:justify-center md:gap-4">
         <div className="grid content-center justify-center ">
         <Image
           src={imageSrc}
-            width={300}
-          height={300}
+            width={250}
+          height={250}
           alt=""
           className="select-none"
           />
         </div>
 
-        <button onClick={()=>chapter.complete()}>Click</button>
-        <div >
-          <p className="flex flex-wrap leading-loose text-balance w-full text-center">
+        {/* <button onClick={()=>chapter.complete()}>Click</button> */}
+        <div className="flex justify-center  items-center flex-col " >
+          {levelStore.level.data.question && <p className="md:mb-6">{levelStore.level.data.question  }</p>}
+          <p className="flex flex-wrap w-fit leading-loose text-balance h-fit">
           <WordsList />
           </p>
         </div>
