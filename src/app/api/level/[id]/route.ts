@@ -4,11 +4,13 @@ import { NextRequest } from "next/server"
 import { conjugar } from "./level1"
 import { preguntas } from "./preguntas"
 import { level3 } from "./level3"
+import { level4 } from "./level4"
 
 const chapters: Chapter[] = [
   conjugar,
   preguntas,
   level3,
+  level4,
   {
     id: 'fx1GsK8Jmk4rC6dgw53BM',
     nextChapterId: 'JutTOC_DYbvJoFrt3Cr62',
