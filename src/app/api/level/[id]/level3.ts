@@ -2,7 +2,7 @@ import { Chapter } from "@/app/ui/levels/chapter-store";
 
 export const level3: Chapter = {
   id: 'fx1GsK8Jmk4rC6dgw53BM',
-  nextChapterId: '',
+  nextChapterId: '6XmDASUeHeoh2dKV692zi',
   levels: [
     {
       id: '6a2THq-cwt7MAvkRaQKY-',

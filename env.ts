@@ -1,6 +1,6 @@
 // Ejemplo "https://2a4a-34-106-9-117.ngrok-free.app/upload"
 
-export const transcriptorApiUrl = "https://6d90-34-73-20-23.ngrok-free.app/upload"
+export const transcriptorApiUrl = "https://f9f4-34-139-221-210.ngrok-free.app/upload"
 let url = ''
 
 if (process.env.NODE_ENV === 'development') {
