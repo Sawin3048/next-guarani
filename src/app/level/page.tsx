@@ -13,9 +13,9 @@ export default function Level() {
         <li>
           <LevelSelector btnUrl="level/fx1GsK8Jmk4rC6dgw53BM" color="emerald" dificulty="fácil" imgSrc="/niño-buscando.png" title="Etapa 3: Tero" subTitle="Sustantivos"/>
         </li>
-        {/* <li>
+        <li>
           <LevelSelector btnUrl="level/6XmDASUeHeoh2dKV692zi" color="purple" dificulty="medio" imgSrc="/niño-buscando.png" title="Etapa 4: Teroja" subTitle="Adjetivos"/>
-        </li> */}
+        </li>
       </ul>
     </main>
   );

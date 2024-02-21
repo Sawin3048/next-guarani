@@ -7,6 +7,7 @@ import JSConfetti from "js-confetti"
 function SuccessSreen() {
   const chapter = useChapter()
   const jsConfetti = new JSConfetti()
+  const id = chapter.completeObject.nextChapterId 
   if (chapter.finish && !chapter.finishAnimation) {
     jsConfetti.addConfetti()
     chapter.successChapterAudio.play()
@@ -27,7 +28,7 @@ function SuccessSreen() {
         <Link href={'/level'}>
         <ButtonLink    color="pink" className="bg-pink-600 w-fit text-white ">Volver al Inicio</ButtonLink>
         </Link>
-        <Link href={`/level/${chapter.completeObject.nextChapterId}`}>
+        <Link href={`/level/${chapter.completeObject.nextChapterId}`} className={`${id === 'none'?'hidden':''}`}>
           <ButtonLink color="emerald" className="bg-emerald-600 w-fit text-white ">Siguiente Nivel</ButtonLink>
         </Link>
         
