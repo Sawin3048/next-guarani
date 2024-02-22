@@ -2,7 +2,7 @@ import { Chapter } from "@/app/ui/levels/chapter-store";
 
 export const level4: Chapter = {
   id: '6XmDASUeHeoh2dKV692zi',
-  nextChapterId: 'none',
+  nextChapterId: 'y21WNc8ZSYDQ9dnT2qzHt',
   levels: [{
     id: '6a2THq-cwt7MAvkRaQKY-',
     type: 'complete-with-audio',
