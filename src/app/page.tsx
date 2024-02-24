@@ -1,4 +1,3 @@
-"use client"
 import Link from "next/link";
 import Image from "next/image";
 import { ButtonLink } from "./ui/buttond";
@@ -40,7 +39,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="mt-20 flex gap-5 flex-wrap md:justify-between justify-center flex-row-reverse">
+      {/* <section className="mt-20 flex gap-5 flex-wrap md:justify-between justify-center flex-row-reverse">
         <div>
           <Image
             alt=""
@@ -69,8 +68,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
-      <button onClick={() => print()}>hola</button>
+      </section> */}
     </main>
   );
 }

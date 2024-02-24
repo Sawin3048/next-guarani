@@ -85,7 +85,7 @@ export function LevelMessage({ }: Pa) {
     {complete === null ? <></>
       :
       complete ? <h4 className="text-white text-xl font-bold">¡Muy Bien!</h4> : <div>
-    <h4 className="text-red-600 text-xl font-extrabold">Solución Correcta:</h4>
+    <h4 className="text-red-600 text-xl font-extrabold">Fallaste:</h4>
         <p className="text-red-600 font-semibold">{palabras.map(
           p => {
             if (p) return p

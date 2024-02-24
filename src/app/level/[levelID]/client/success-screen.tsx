@@ -17,7 +17,7 @@ function SuccessSreen() {
   return <>
     <main className="flex justify-around items-center  flex-col m-auto bg-white max-w-3xl h-dvh">
       <div className="font-bold text-5xl text-center text-emerald-600">
-      <h2 className="">¡Felicidales!</h2> 
+      <h2 className="">¡Felicidades!</h2> 
       <h3 className=" text-3xl text-balance">Completaste el Capítulo</h3>
       </div>
       <div className="flex justify-around w-full overflow-hidden">

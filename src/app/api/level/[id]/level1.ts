@@ -7,7 +7,6 @@ export const conjugar: Chapter = {
     {
       "type": "complete-with-audio",
       "data": {
-        question: "¿Mba'e ojapo?",
         "imageSrc": "/niña-comiendo.png",
         "words": [
           {

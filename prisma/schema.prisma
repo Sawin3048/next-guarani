@@ -12,10 +12,19 @@ datasource db {
 }
 
 model User{
-  id String 
+  id String @unique
   username String @unique
   birth String
   gender String
   identify String
   password String
+  trys  Try[]
+}
+
+model Try{
+  id String @id
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+  chapterId String
+  
 }
