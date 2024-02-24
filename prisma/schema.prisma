@@ -26,5 +26,6 @@ model Try{
   author User @relation(fields: [authorId], references: [id])
   authorId String
   chapterId String
-  
+  error Int
+  date DateTime
 }
