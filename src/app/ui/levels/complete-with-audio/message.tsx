@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useCompleteWithAudio } from "./context";
 import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
+import { MakeLog } from "./makeLog";
 
 interface Params {
   active: boolean
@@ -66,8 +67,10 @@ export function LevelMessage({ }: Pa) {
 
                 if (correct) {
                   chapter.successLevelAudio.play()
+                  MakeLog(true)
                 }
                 else {
+                  MakeLog(false)
                   chapter.failLevelAudio.play()
                 }
               }
@@ -84,15 +87,18 @@ export function LevelMessage({ }: Pa) {
 
     {complete === null ? <></>
       :
-      complete ? <h4 className="text-white text-xl font-bold">¡Muy Bien!</h4> : <div>
-    <h4 className="text-red-600 text-xl font-extrabold">Fallaste:</h4>
-        <p className="text-red-600 font-semibold">{palabras.map(
-          p => {
-            if (p) return p
-            counter ++
-            return level.data.correctOption[(counter - 1)]
-          }).join(" ")}</p>
-    </div>
+      complete
+        ? <h4 className="text-white text-xl font-bold">¡Muy Bien!</h4>
+        : <div>
+            <h4 className="text-red-600 text-xl font-extrabold">Fallaste:</h4>
+            <p className="text-red-600 font-semibold">{palabras.map(
+              p => {
+                if (p) return p
+                counter ++
+                return level.data.correctOption[(counter - 1)]
+              }).join(" ")}
+            </p>
+          </div>
     } 
   
   </div>

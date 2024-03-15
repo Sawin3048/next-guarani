@@ -7,7 +7,17 @@ export interface Chapter {
   nextChapterId: string
 }
 
+export interface Log {
+  levelId: string;
+  selected: string;
+  correct: boolean;
+  correctOption: string;
+}
+
 export interface State {
+  //Level Logs
+  logs: Log[]
+
   levels: ILevel[]
   currentID: string
   completed: string[]
@@ -33,6 +43,7 @@ export interface Actions {
   complete: () => void
   fail: () => void
   updateUI: (guess: boolean) => void
+  addLog: (log: Log) => void
 }
 
 export const useStore = create<State & Actions>((set) =>
@@ -59,6 +70,8 @@ export const useStore = create<State & Actions>((set) =>
   failLevelAudio: new Audio('/fail.mp3'),
   successChapterAudio: new Audio('/victory.mp3'),
   failChapterAudio: new Audio('/derrota.mp3'),
+  //Level Logs
+  logs: [],
   init: (chapter) => set((state) => {
     const levels = chapter.levels
     const currentID = levels[0].id
@@ -135,7 +148,11 @@ export const useStore = create<State & Actions>((set) =>
     return { heartUI: state.heartUI - 1 }
   })),
 
-
+  addLog: (log) => (set((state) => {
+    return {
+      logs: [...state.logs, log]
+    }
+  }))
 }))
 
 

@@ -6,7 +6,6 @@ import Level from "@/app/ui/levels/complete-level/level"
 import { LevelMessage } from "@/app/ui/levels/complete-level/message"
 import FailScreen from "./fail-screen"
 import SuccessSreen from "./success-screen"
-import { QuestionAndAudioLevel } from "@/app/ui/levels/types"
 import { CompleteLevel } from "@/app/ui/levels/complete-level/level-ready"
 import { CompleteWithAudio } from "@/app/ui/levels/complete-with-audio/level-ready"
 import { QuestionsAndAudioLevel } from "@/app/ui/levels/audio-level/level-ready"
@@ -31,9 +30,22 @@ function LevelReady() {
 function Client() {  
   const chapter = useChapter()
   
+  const registerLogs = () => {
+    fetch('/api/log', {
+      method: 'POST',
+      body: 'sdf'
+    })
+  }
+
+  if (chapter.finish) {
+    registerLogs()
+    return <SuccessSreen/>
+  }
   
-  if (chapter.finish) return <SuccessSreen/>
-  if(chapter.heart <= 0) return <FailScreen />
+  if (chapter.heart <= 0) {
+    registerLogs()
+    return <FailScreen />
+  }
   
   if (chapter.isReady) return (
     <div className="flex flex-col max-w-3xl justify-between m-auto h-svh bg-white">
