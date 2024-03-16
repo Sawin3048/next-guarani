@@ -7,6 +7,10 @@ export interface Chapter {
   nextChapterId: string
 }
 
+export interface ChapterLog {
+  chapterId: string,
+}
+
 export interface Log {
   levelId: string;
   selected: string;
