@@ -1,12 +1,25 @@
 import LevelSelector from "@/app/ui/levels/level-card";
+import { ButtonLink } from "@/app/ui/buttond";
+import Link from "next/link";
+import History from "../ui/svg/history";
 
 export default function Level() {
   return (
-    <main>
+    <main className="relative max-w-3xl m-auto">
+      <nav className="fixed md:bottom-[60px] bottom-[20px] md:ml-10 ml-5 z-50 shadow-2xl">
+        <Link href={'/account/stats'}>
+          <ButtonLink color="emerald" className="bg-emerald-600">
+            <div className="text-white w-10 h-10 flex justify-center items-center">
+              <History className="text-white w-full" />
+            </div>
+          </ButtonLink>
+        </Link>
+      </nav>
+      {/* <hr className="mb-4 mt-3"/> */}
       <ul className="text-white flex md:gap-3 gap-1 flex-col md:mt-4">
         <li>
           <LevelSelector btnUrl="level/NymsQz0MvUCY2XqDQEnRJ" color="pink" dificulty="fácil" imgSrc="/niño-buscando.png" title="Etapa 1: Terarãngue" subTitle="Pronombres Personales"/>
-        </li>    
+        </li>
         <li>
           <LevelSelector btnUrl="level/Osr4xJtV1X9H41Db6vYOR" color="purple" dificulty="fácil" imgSrc="/niña-comiendo.png" title="Etapa 2: Ñe'ẽtéva" subTitle="Verbos"/>
         </li>

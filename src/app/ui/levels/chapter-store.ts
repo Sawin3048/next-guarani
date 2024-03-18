@@ -9,6 +9,8 @@ export interface Chapter {
 
 export interface ChapterLog {
   chapterId: string,
+  logs: Log[]
+  // errorCount: number
 }
 
 export interface Log {

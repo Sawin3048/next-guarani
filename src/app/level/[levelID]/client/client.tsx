@@ -9,6 +9,7 @@ import SuccessSreen from "./success-screen"
 import { CompleteLevel } from "@/app/ui/levels/complete-level/level-ready"
 import { CompleteWithAudio } from "@/app/ui/levels/complete-with-audio/level-ready"
 import { QuestionsAndAudioLevel } from "@/app/ui/levels/audio-level/level-ready"
+import { ChapterLog } from "@/app/ui/levels/chapter-store"
 
 
 
@@ -30,11 +31,23 @@ function LevelReady() {
 function Client() {  
   const chapter = useChapter()
   
+  
   const registerLogs = () => {
+    const logs: ChapterLog = {
+      chapterId: chapter.completeObject.id,
+      logs: chapter.logs,
+      // logs: [{correct:false, correctOption:'asdf',levelId:'asdfjalsdjf',selected:'asdfd'}]
+      // errorCount: chapter.logs.filter(l => !l.correct).length
+    }
+    
+    const form = new FormData()
+    form.append('logs', JSON.stringify(logs))
+    
     fetch('/api/log', {
       method: 'POST',
-      body: 'sdf'
+      body: form
     })
+  
   }
 
   if (chapter.finish) {
