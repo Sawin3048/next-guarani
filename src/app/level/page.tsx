@@ -6,7 +6,7 @@ import History from "../ui/svg/history";
 export default function Level() {
   return (
     <main className="relative max-w-3xl m-auto">
-      <nav className="fixed md:bottom-[60px] bottom-[20px] md:ml-10 ml-5 z-50 shadow-2xl">
+      <nav className="fixed md:bottom-[60px] bottom-[20px] right-0 mr-2 md:mr-[60px] z-50 shadow-2xl">
         <Link href={'/account/stats'}>
           <ButtonLink color="emerald" className="bg-emerald-600">
             <div className="text-white w-10 h-10 flex justify-center items-center">

@@ -35,8 +35,8 @@ function Client() {
   const registerLogs = () => {
     const logs: ChapterLog = {
       chapterId: chapter.completeObject.id,
-      logs: chapter.logs,
-      // logs: [{correct:false, correctOption:'asdf',levelId:'asdfjalsdjf',selected:'asdfd'}]
+      // logs: chapter.logs,
+      logs: [{correct:false, correctOption:'asdf',levelId:'asdfjalsdjf',selected:'asdfd'},{correct:true, correctOption:'asdf',levelId:'asdfjalsdjf',selected:'asdfd'},{correct:false, correctOption:'asdf',levelId:'asdfjalsdjf',selected:'asdfd'}]
       // errorCount: chapter.logs.filter(l => !l.correct).length
     }
     
