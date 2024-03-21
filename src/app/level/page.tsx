@@ -3,6 +3,15 @@ import { ButtonLink } from "@/app/ui/buttond";
 import Link from "next/link";
 import History from "../ui/svg/history";
 
+interface ILevelSelector {
+  url: string
+  color: string 
+  dificulty: string
+  imgSrc: string
+  title: string
+  subTitle: string
+}
+
 export default function Level() {
   return (
     <main className="relative max-w-3xl m-auto">
