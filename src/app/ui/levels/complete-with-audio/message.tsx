@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useCompleteWithAudio } from "./context";
 import { useChapter } from "@/app/level/[levelID]/context/chapter-handler-context";
-import { MakeLog } from "./makeLog";
+import { Log } from "../chapter-store";
 
 interface Params {
   active: boolean
@@ -43,6 +43,16 @@ export function LevelMessage({ }: Pa) {
   const complete = levelStore.isCorrect
   const level = levelStore.level
   
+  function MakeLog(correct: boolean) {
+    const log: Log = {
+      correct: correct,
+      levelId: chapter.currentID,
+      selected: levelStore.selectedWords[0],
+      correctOption: chapter.current.data.correctOption[0]
+    }
+    chapter.addLog(log)
+  }
+
   const palabras = level.data.words.map(w => {
     if (w.type === "word") return w.word
     if(w.type === "space") return null
